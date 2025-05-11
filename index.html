@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Fun for Kids</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #4b0082;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #9370db;
+        }
+        .operation-selector {
+            margin: 20px 0;
+        }
+        button {
+            background-color: #9370db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background-color: #8a2be2;
+            transform: scale(1.05);
+        }
+        button.selected {
+            background-color: #4b0082;
+            transform: scale(1.1);
+        }
+        button.difficulty {
+            background-color: #20b2aa;
+        }
+        button.difficulty:hover {
+            background-color: #2e8b57;
+        }
+        button.difficulty.selected {
+            background-color: #008080;
+        }
+        .problem-container {
+            font-size: 24px;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #e6e6fa;
+            border-radius: 10px;
+        }
+        #problem {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 10px;
+            font-size: 24px;
+            width: 100px;
+            border: 2px solid #9370db;
+            border-radius: 8px;
+            text-align: center;
+        }
+        #check-answer {
+            background-color: #32cd32;
+            margin-top: 10px;
+            padding: 12px 24px;
+        }
+        #check-answer:hover {
+            background-color: #228b22;
+        }
+        #result {
+            font-size: 24px;
+            margin-top: 20px;
+            min-height: 30px;
+        }
+        .correct {
+            color: #32cd32;
+            font-weight: bold;
+        }
+        .incorrect {
+            color: #ff6347;
+            font-weight: bold;
+        }
+        .score-container {
+            margin: 20px 0;
+            font-size: 18px;
+        }
+        .progress-bar {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+        .progress {
+            height: 20px;
+            background-color: #4caf50;
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        .character {
+            width: 150px;
+            margin: 0 auto;
+        }
+        .character img {
+            width: 100%;
+        }
+        .celebration {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+        .celebration-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            animation: bounce 0.5s;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-30px);}
+            60% {transform: translateY(-15px);}
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            animation: confetti-fall 3s linear infinite;
+        }
+        @keyframes confetti-fall {
+            0% {transform: translateY(-100px) rotate(0deg); opacity: 1;}
+            100% {transform: translateY(600px) rotate(720deg); opacity: 0;}
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Math Fun for Kids! 🧮</h1>
+        
+        <div class="character">
+            <img src="/api/placeholder/150/150" alt="Math character" />
+        </div>
+        
+        <div class="operation-selector">
+            <h2>Choose an Operation:</h2>
+            <button id="addition" class="operation selected">Addition (+)</button>
+            <button id="subtraction" class="operation">Subtraction (-)</button>
+            <button id="multiplication" class="operation">Multiplication (×)</button>
+            <button id="division" class="operation">Division (÷)</button>
+        </div>
+        
+        <div class="difficulty-selector">
+            <h2>Choose Difficulty:</h2>
+            <button id="easy" class="difficulty selected">Easy</button>
+            <button id="medium" class="difficulty">Medium</button>
+            <button id="hard" class="difficulty">Hard</button>
+        </div>
+        
+        <div class="problem-container">
+            <div id="problem">Question will appear here</div>
+            <input type="number" id="answer" placeholder="?" autofocus>
+            <div>
+                <button id="check-answer">Check Answer</button>
+            </div>
+            <div id="result"></div>
+        </div>
+        
+        <div class="score-container">
+            <div>Score: <span id="score">0</span> / <span id="total">0</span></div>
+            <div class="progress-bar">
+                <div class="progress" id="progress-bar"></div>
+            </div>
+        </div>
+        
+        <button id="new-question">New Question</button>
+    </div>
+    
+    <div class="celebration" id="celebration">
+        <div class="celebration-content">
+            <h2>Amazing Job! 🎉</h2>
+            <p>You got 10 answers correct!</p>
+            <p>You're becoming a math superstar!</p>
+            <button id="continue-btn">Continue Learning</button>
+        </div>
+    </div>
+
+    <script>
+        // Game state
+        let currentOperation = 'addition';
+        let currentDifficulty = 'easy';
+        let correctAnswer = null;
+        let score = 0;
+        let total = 0;
+        
+        // DOM elements
+        const operationButtons = document.querySelectorAll('.operation');
+        const difficultyButtons = document.querySelectorAll('.difficulty');
+        const problemElement = document.getElementById('problem');
+        const answerInput = document.getElementById('answer');
+        const checkAnswerButton = document.getElementById('check-answer');
+        const resultElement = document.getElementById('result');
+        const scoreElement = document.getElementById('score');
+        const totalElement = document.getElementById('total');
+        const progressBar = document.getElementById('progress-bar');
+        const newQuestionButton = document.getElementById('new-question');
+        const celebrationElement = document.getElementById('celebration');
+        const continueButton = document.getElementById('continue-btn');
+        
+        // Set up event listeners
+        operationButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                operationButtons.forEach(b => b.classList.remove('selected'));
+                button.classList.add('selected');
+                currentOperation = button.id;
+                generateQuestion();
+            });
+        });
+        
+        difficultyButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                difficultyButtons.forEach(b => b.classList.remove('selected'));
+                button.classList.add('selected');
+                currentDifficulty = button.id;
+                generateQuestion();
+            });
+        });
+        
+        checkAnswerButton.addEventListener('click', checkAnswer);
+        answerInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                checkAnswer();
+            }
+        });
+        
+        newQuestionButton.addEventListener('click', generateQuestion);
+        continueButton.addEventListener('click', () => {
+            celebrationElement.style.display = 'none';
+            generateQuestion();
+        });
+        
+        // Functions
+        function generateQuestion() {
+            answerInput.value = '';
+            resultElement.innerHTML = '';
+            answerInput.focus();
+            
+            let num1, num2;
+            
+            // Set number ranges based on difficulty
+            switch (currentDifficulty) {
+                case 'easy':
+                    num1 = getRandomInt(1, 10);
+                    num2 = getRandomInt(1, 10);
+                    break;
+                case 'medium':
+                    num1 = getRandomInt(5, 20);
+                    num2 = getRandomInt(5, 20);
+                    break;
+                case 'hard':
+                    num1 = getRandomInt(10, 50);
+                    num2 = getRandomInt(10, 50);
+                    break;
+            }
+            
+            // For subtraction, ensure num1 >= num2
+            if (currentOperation === 'subtraction') {
+                [num1, num2] = [Math.max(num1, num2), Math.min(num1, num2)];
+            }
+            
+            // For division, ensure result is a whole number
+            if (currentOperation === 'division') {
+                num2 = getRandomInt(1, 10);
+                num1 = num2 * getRandomInt(1, 10);
+            }
+            
+            // Generate the problem
+            let problemText;
+            switch (currentOperation) {
+                case 'addition':
+                    problemText = `${num1} + ${num2} = ?`;
+                    correctAnswer = num1 + num2;
+                    break;
+                case 'subtraction':
+                    problemText = `${num1} - ${num2} = ?`;
+                    correctAnswer = num1 - num2;
+                    break;
+                case 'multiplication':
+                    problemText = `${num1} × ${num2} = ?`;
+                    correctAnswer = num1 * num2;
+                    break;
+                case 'division':
+                    problemText = `${num1} ÷ ${num2} = ?`;
+                    correctAnswer = num1 / num2;
+                    break;
+            }
+            
+            problemElement.textContent = problemText;
+        }
+        
+        function checkAnswer() {
+            if (answerInput.value === '') {
+                resultElement.innerHTML = 'Please enter an answer!';
+                return;
+            }
+            
+            const userAnswer = parseFloat(answerInput.value);
+            total++;
+            totalElement.textContent = total;
+            
+            if (userAnswer === correctAnswer) {
+                resultElement.innerHTML = '<span class="correct">Correct! Great job! 😃</span>';
+                score++;
+                scoreElement.textContent = score;
+                createConfetti();
+                
+                // Check for celebration
+                if (score % 10 === 0) {
+                    setTimeout(() => {
+                        celebrationElement.style.display = 'block';
+                    }, 1000);
+                } else {
+                    setTimeout(generateQuestion, 1500);
+                }
+            } else {
+                resultElement.innerHTML = `<span class="incorrect">Not quite. The correct answer is ${correctAnswer}. Try again! 🤔</span>`;
+                setTimeout(generateQuestion, 2500);
+            }
+            
+            // Update progress bar
+            updateProgressBar();
+        }
+        
+        function updateProgressBar() {
+            const percentage = Math.min((score / 10) * 100, 100);
+            progressBar.style.width = percentage + '%';
+        }
+        
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        
+        function createConfetti() {
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = `${getRandomInt(0, 100)}%`;
+                confetti.style.backgroundColor = getRandomColor();
+                confetti.style.animationDuration = `${getRandomInt(2, 5)}s`;
+                confetti.style.animationDelay = `${getRandomInt(0, 2) / 10}s`;
+                document.body.appendChild(confetti);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    document.body.removeChild(confetti);
+                }, 5000);
+            }
+        }
+        
+        function getRandomColor() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+        
+        // Initialize the game
+        generateQuestion();
+    </script>
+</body>
+</html>
