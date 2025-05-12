@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mishi Math - Your Learning Adventure</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
         
@@ -18,41 +17,6 @@
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, rgba(106, 90, 205, 0.1) 0%, rgba(255, 107, 107, 0.1) 100%);
-            min-height: 100vh;
-            color: #333;
-        }
-
-        .game-card {
-            transition: all 0.3s ease;
-            transform-style: preserve-3d;
-            perspective: 1000px;
-            border: 2px solid transparent;
-            background-clip: padding-box;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .game-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent, var(--primary-color), transparent);
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .game-card:hover::before {
-            opacity: 0.1;
-        }
-
-        .game-card:hover {
-            transform: scale(1.05) translateY(-10px);
-            box-shadow: 0 15px 35px rgba(106, 90, 205, 0.2);
-            border-color: var(--primary-color);
         }
 
         .mishi-btn {
@@ -64,59 +28,39 @@
         .mishi-btn:hover {
             background-color: var(--secondary-color);
             transform: translateY(-3px);
-            box-shadow: 0 7px 14px rgba(106, 90, 205, 0.3);
         }
 
-        .modal {
-            background: rgba(0,0,0,0.5);
+        .problem-card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
 
-        .blob {
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at center, rgba(106, 90, 205, 0.05) 0%, transparent 70%);
-            animation: blob-animation 20s infinite linear;
-            z-index: -2;
+        .problem-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
 
-        @keyframes blob-animation {
-            0% {
-                transform: rotate(0deg) scale(1);
-            }
-            50% {
-                transform: rotate(180deg) scale(1.2);
-            }
-            100% {
-                transform: rotate(360deg) scale(1);
-            }
+        .feedback-correct {
+            background-color: rgba(76, 175, 80, 0.1);
+            border: 2px solid green;
         }
 
-        .subject-icon {
-            transition: all 0.4s ease;
-        }
-
-        .game-card:hover .subject-icon {
-            transform: rotate(15deg) scale(1.1);
+        .feedback-incorrect {
+            background-color: rgba(244, 67, 54, 0.1);
+            border: 2px solid red;
         }
     </style>
 </head>
-<body class="relative">
-    <div class="blob"></div>
-    
-    <!-- Header -->
-    <header class="bg-white bg-opacity-90 shadow-md p-4 sticky top-0 z-50">
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <header class="bg-white shadow-md p-4">
         <div class="container mx-auto flex justify-between items-center">
             <div class="flex items-center">
                 <img src="/api/placeholder/50/50" alt="Mishi Math Logo" class="w-12 h-12 mr-3 rounded-full">
-                <h1 class="text-2xl font-bold" style="color: var(--primary-color);">Mishi Math</h1>
+                <h1 class="text-2xl font-bold text-purple-600">Mishi Math</h1>
             </div>
-            <nav class="flex items-center space-x-4">
-                <button id="leaderboardBtn" class="text-gray-700 hover:text-primary-color">
-                    Leaderboard
-                </button>
+            <nav>
                 <button id="profileBtn" class="mishi-btn px-4 py-2 rounded-full">
                     My Profile
                 </button>
@@ -124,77 +68,79 @@
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8">
-        <!-- Motivational Header -->
-        <section class="text-center mb-12">
-            <h2 class="text-4xl font-bold mb-4" style="color: var(--primary-color);">
-                Your Math Learning Adventure Starts Here!
-            </h2>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                Unlock the magic of mathematics with personalized, fun, and interactive learning experiences tailored to your grade level.
-            </p>
-        </section>
-
+    <main class="container mx-auto px-4 py-8 flex-grow">
         <!-- Grade Selection -->
-        <section id="gradeSelection" class="grid md:grid-cols-3 gap-6">
-            <!-- Dynamic Grades will be generated here -->
-            <div class="grade-card bg-white rounded-xl shadow-lg p-6 text-center game-card cursor-pointer" data-grade="K">
-                <div class="text-6xl font-bold mb-4" style="color: var(--primary-color);">K</div>
-                <h3 class="text-xl font-semibold">Kindergarten</h3>
-                <p class="text-gray-500 text-sm">Ages 4-5</p>
+        <section id="gradeSelection">
+            <h2 class="text-3xl font-bold text-center mb-8 text-purple-600">Choose Your Grade</h2>
+            <div class="grid md:grid-cols-6 gap-4">
+                <div class="grade-card bg-white rounded-xl shadow-lg p-4 text-center cursor-pointer hover:bg-purple-50 transition" data-grade="K">
+                    <div class="text-4xl font-bold text-purple-600">K</div>
+                    <div class="text-sm text-gray-500">Kindergarten</div>
+                </div>
+                <div class="grade-card bg-white rounded-xl shadow-lg p-4 text-center cursor-pointer hover:bg-purple-50 transition" data-grade="1">
+                    <div class="text-4xl font-bold text-purple-600">1</div>
+                    <div class="text-sm text-gray-500">First Grade</div>
+                </div>
+                <div class="grade-card bg-white rounded-xl shadow-lg p-4 text-center cursor-pointer hover:bg-purple-50 transition" data-grade="2">
+                    <div class="text-4xl font-bold text-purple-600">2</div>
+                    <div class="text-sm text-gray-500">Second Grade</div>
+                </div>
+                <div class="grade-card bg-white rounded-xl shadow-lg p-4 text-center cursor-pointer hover:bg-purple-50 transition" data-grade="3">
+                    <div class="text-4xl font-bold text-purple-600">3</div>
+                    <div class="text-sm text-gray-500">Third Grade</div>
+                </div>
+                <div class="grade-card bg-white rounded-xl shadow-lg p-4 text-center cursor-pointer hover:bg-purple-50 transition" data-grade="4">
+                    <div class="text-4xl font-bold text-purple-600">4</div>
+                    <div class="text-sm text-gray-500">Fourth Grade</div>
+                </div>
+                <div class="grade-card bg-white rounded-xl shadow-lg p-4 text-center cursor-pointer hover:bg-purple-50 transition" data-grade="5">
+                    <div class="text-4xl font-bold text-purple-600">5</div>
+                    <div class="text-sm text-gray-500">Fifth Grade</div>
+                </div>
             </div>
-            
-            <!-- More grade cards follow similar pattern -->
-            <div class="grade-card bg-white rounded-xl shadow-lg p-6 text-center game-card cursor-pointer" data-grade="1">
-                <div class="text-6xl font-bold mb-4" style="color: var(--secondary-color);">1</div>
-                <h3 class="text-xl font-semibold">First Grade</h3>
-                <p class="text-gray-500 text-sm">Ages 6-7</p>
-            </div>
-
-            <!-- Add remaining grade cards (2-5) similarly -->
         </section>
 
         <!-- Subject Selection (Hidden by Default) -->
         <section id="subjectSelection" class="hidden">
-            <div class="text-center mb-12">
-                <button id="backToGrades" class="text-gray-600 hover:text-primary-color mb-4 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
-                    </svg>
-                    Back to Grades
-                </button>
-                <h2 id="selectedGradeTitle" class="text-4xl font-bold" style="color: var(--primary-color);">
-                    Grade X Subjects
-                </h2>
-                <p class="text-gray-600 mt-2">Choose a math subject to begin your learning journey!</p>
-            </div>
+            <button id="backToGrades" class="mb-4 text-purple-600 hover:text-purple-800 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Back to Grades
+            </button>
 
-            <div id="subjectsContainer" class="grid md:grid-cols-3 gap-6">
-                <!-- Math Subjects -->
-                <div class="subject-card bg-white rounded-xl shadow-lg p-6 text-center game-card cursor-pointer" data-subject="counting">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto subject-icon mb-4" style="color: var(--primary-color);" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+            <h2 id="selectedGradeTitle" class="text-3xl font-bold mb-8 text-purple-600">Grade Subjects</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="subject-card bg-white rounded-xl shadow-lg p-6 text-center cursor-pointer" data-subject="counting">
+                    <div class="text-5xl mb-4">🔢</div>
                     <h3 class="text-xl font-semibold mb-2">Counting</h3>
-                    <p class="text-gray-600 text-sm">Learn number recognition and basics</p>
+                    <p class="text-gray-600">Learn number recognition</p>
                 </div>
-
-                <div class="subject-card bg-white rounded-xl shadow-lg p-6 text-center game-card cursor-pointer" data-subject="addition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto subject-icon mb-4" style="color: var(--secondary-color);" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+                <div class="subject-card bg-white rounded-xl shadow-lg p-6 text-center cursor-pointer" data-subject="addition">
+                    <div class="text-5xl mb-4">➕</div>
                     <h3 class="text-xl font-semibold mb-2">Addition</h3>
-                    <p class="text-gray-600 text-sm">Master adding numbers together</p>
+                    <p class="text-gray-600">Add numbers together</p>
                 </div>
-
-                <!-- More subjects follow similar pattern -->
-                <div class="subject-card bg-white rounded-xl shadow-lg p-6 text-center game-card cursor-pointer" data-subject="subtraction">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto subject-icon mb-4" style="color: var(--accent-color);" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
-                    </svg>
+                <div class="subject-card bg-white rounded-xl shadow-lg p-6 text-center cursor-pointer" data-subject="subtraction">
+                    <div class="text-5xl mb-4">➖</div>
                     <h3 class="text-xl font-semibold mb-2">Subtraction</h3>
-                    <p class="text-gray-600 text-sm">Learn to subtract like a pro</p>
+                    <p class="text-gray-600">Subtract with ease</p>
+                </div>
+                <div class="subject-card bg-white rounded-xl shadow-lg p-6 text-center cursor-pointer" data-subject="multiplication">
+                    <div class="text-5xl mb-4">✖️</div>
+                    <h3 class="text-xl font-semibold mb-2">Multiplication</h3>
+                    <p class="text-gray-600">Master times tables</p>
+                </div>
+                <div class="subject-card bg-white rounded-xl shadow-lg p-6 text-center cursor-pointer" data-subject="division">
+                    <div class="text-5xl mb-4">➗</div>
+                    <h3 class="text-xl font-semibold mb-2">Division</h3>
+                    <p class="text-gray-600">Learn sharing and dividing</p>
+                </div>
+                <div class="subject-card bg-white rounded-xl shadow-lg p-6 text-center cursor-pointer" data-subject="algebra">
+                    <div class="text-5xl mb-4">📊</div>
+                    <h3 class="text-xl font-semibold mb-2">Algebra</h3>
+                    <p class="text-gray-600">Solve equations</p>
                 </div>
             </div>
         </section>
@@ -202,30 +148,19 @@
         <!-- Practice Area (Hidden by Default) -->
         <section id="practiceArea" class="hidden">
             <div class="bg-white rounded-xl shadow-lg p-8">
-                <div class="text-center mb-8">
-                    <h2 id="practiceTopic" class="text-3xl font-bold" style="color: var(--primary-color);">
-                        Counting Practice
-                    </h2>
-                    <p id="practiceDescription" class="text-gray-600 mt-2">
-                        Test and improve your counting skills!
-                    </p>
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 id="practiceTopic" class="text-3xl font-bold text-purple-600">Practice</h2>
+                        <p id="practiceDescription" class="text-gray-600">Solve these problems!</p>
+                    </div>
+                    <div>
+                        <span class="text-xl font-semibold">Score: </span>
+                        <span id="scoreDisplay" class="text-xl font-bold text-purple-600">0/0</span>
+                    </div>
                 </div>
 
-                <div id="practiceContent" class="grid md:grid-cols-2 gap-6">
-                    <!-- Practice problems will be dynamically generated here -->
-                    <div class="bg-gray-100 rounded-lg p-4">
-                        <h3 class="text-xl font-semibold mb-4">Problem 1</h3>
-                        <div id="problem1" class="text-center">
-                            <!-- Dynamic problem will be inserted here -->
-                        </div>
-                    </div>
-
-                    <div class="bg-gray-100 rounded-lg p-4">
-                        <h3 class="text-xl font-semibold mb-4">Problem 2</h3>
-                        <div id="problem2" class="text-center">
-                            <!-- Dynamic problem will be inserted here -->
-                        </div>
-                    </div>
+                <div id="problemsContainer" class="grid md:grid-cols-2 gap-6">
+                    <!-- Problems will be dynamically generated here -->
                 </div>
 
                 <div class="mt-8 flex justify-center space-x-4">
@@ -233,55 +168,323 @@
                         Check Answers
                     </button>
                     <button id="nextPracticeBtn" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-full hover:bg-gray-300">
-                        Next Problems
+                        Next Set
                     </button>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-white bg-opacity-90 shadow-md p-6 mt-12">
-        <div class="container mx-auto text-center">
-            <p class="text-gray-600">
-                © 2024 Mishi Math. All rights reserved. 
-                <a href="#" class="text-primary-color hover:underline ml-2">Privacy Policy</a>
-                <a href="#" class="text-primary-color hover:underline ml-2">Terms of Service</a>
-            </p>
-        </div>
-    </footer>
-
     <script>
-        // Interactive JavaScript will go here
+        // Math Problem Generator
+        class MathProblemGenerator {
+            constructor(grade, subject) {
+                this.grade = parseInt(grade);
+                this.subject = subject;
+            }
+
+            generateProblems() {
+                switch(this.subject) {
+                    case 'counting':
+                        return this.generateCountingProblems();
+                    case 'addition':
+                        return this.generateAdditionProblems();
+                    case 'subtraction':
+                        return this.generateSubtractionProblems();
+                    case 'multiplication':
+                        return this.generateMultiplicationProblems();
+                    case 'division':
+                        return this.generateDivisionProblems();
+                    case 'algebra':
+                        return this.generateAlgebraProblems();
+                    default:
+                        return [];
+                }
+            }
+
+            generateCountingProblems() {
+                const problems = [];
+                const maxNumber = this.getMaxNumberByGrade();
+                
+                for (let i = 0; i < 4; i++) {
+                    const numbers = this.generateUniqueRandomNumbers(3, 1, maxNumber);
+                    problems.push({
+                        question: `Order these numbers from smallest to largest: ${numbers.join(', ')}`,
+                        type: 'ordering',
+                        answer: numbers.sort((a, b) => a - b).join(', ')
+                    });
+                }
+                return problems;
+            }
+
+            generateAdditionProblems() {
+                const problems = [];
+                const maxNumber = this.getMaxNumberByGrade();
+                
+                for (let i = 0; i < 4; i++) {
+                    const a = this.getRandomNumber(1, maxNumber);
+                    const b = this.getRandomNumber(1, maxNumber);
+                    problems.push({
+                        question: `${a} + ${b} = `,
+                        type: 'calculation',
+                        answer: a + b
+                    });
+                }
+                return problems;
+            }
+
+            generateSubtractionProblems() {
+                const problems = [];
+                const maxNumber = this.getMaxNumberByGrade();
+                
+                for (let i = 0; i < 4; i++) {
+                    const a = this.getRandomNumber(maxNumber / 2, maxNumber);
+                    const b = this.getRandomNumber(1, a);
+                    problems.push({
+                        question: `${a} - ${b} = `,
+                        type: 'calculation',
+                        answer: a - b
+                    });
+                }
+                return problems;
+            }
+
+            generateMultiplicationProblems() {
+                const problems = [];
+                const maxNumber = this.getMaxNumberByGrade();
+                
+                for (let i = 0; i < 4; i++) {
+                    const a = this.getRandomNumber(1, 12);
+                    const b = this.getRandomNumber(1, 12);
+                    problems.push({
+                        question: `${a} × ${b} = `,
+                        type: 'calculation',
+                        answer: a * b
+                    });
+                }
+                return problems;
+            }
+
+            generateDivisionProblems() {
+                const problems = [];
+                const maxNumber = this.getMaxNumberByGrade();
+                
+                for (let i = 0; i < 4; i++) {
+                    const b = this.getRandomNumber(1, 12);
+                    const a = b * this.getRandomNumber(1, 12);
+                    problems.push({
+                        question: `${a} ÷ ${b} = `,
+                        type: 'calculation',
+                        answer: a / b
+                    });
+                }
+                return problems;
+            }
+
+            generateAlgebraProblems() {
+                const problems = [];
+                
+                for (let i = 0; i < 4; i++) {
+                    const x = this.getRandomNumber(1, 20);
+                    const a = this.getRandomNumber(1, 10);
+                    const b = this.getRandomNumber(1, 10);
+                    
+                    if (this.grade <= 3) {
+                        // Simple missing number problems
+                        problems.push({
+                            question: `${a} + □ = ${a + x}`,
+                            type: 'missing_number',
+                            answer: x
+                        });
+                    } else {
+                        // More complex equation
+                        problems.push({
+                            question: `${a}x + ${b} = ${a * x + b}`,
+                            type: 'equation',
+                            answer: x
+                        });
+                    }
+                }
+                return problems;
+            }
+
+            getMaxNumberByGrade() {
+                const maxNumbers = {
+                    K: 10,
+                    1: 20,
+                    2: 50,
+                    3: 100,
+                    4: 1000,
+                    5: 10000
+                };
+                return maxNumbers[this.grade] || 100;
+            }
+
+            getRandomNumber(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            generateUniqueRandomNumbers(count, min, max) {
+                const numbers = new Set();
+                while (numbers.size < count) {
+                    numbers.add(this.getRandomNumber(min, max));
+                }
+                return Array.from(numbers);
+            }
+        }
+
+        // Main Application Logic
         document.addEventListener('DOMContentLoaded', () => {
+            let currentGrade = null;
+            let currentSubject = null;
+            let currentProblems = [];
+            let score = 0;
+            let totalQuestions = 0;
+
+            // Grade Selection
             const gradeCards = document.querySelectorAll('.grade-card');
-            const subjectCards = document.querySelectorAll('.subject-card');
             const gradeSelection = document.getElementById('gradeSelection');
             const subjectSelection = document.getElementById('subjectSelection');
             const practiceArea = document.getElementById('practiceArea');
-            const backToGradesBtn = document.getElementById('backToGrades');
             const selectedGradeTitle = document.getElementById('selectedGradeTitle');
+            const backToGradesBtn = document.getElementById('backToGrades');
+            const problemsContainer = document.getElementById('problemsContainer');
+            const checkAnswersBtn = document.getElementById('checkAnswersBtn');
+            const nextPracticeBtn = document.getElementById('nextPracticeBtn');
+            const practiceTopic = document.getElementById('practiceTopic');
+            const practiceDescription = document.getElementById('practiceDescription');
+            const scoreDisplay = document.getElementById('scoreDisplay');
 
-            // Grade Selection Interaction
+            // Grade Selection Event Listeners
             gradeCards.forEach(card => {
                 card.addEventListener('click', () => {
-                    const selectedGrade = card.getAttribute('data-grade');
-                    selectedGradeTitle.textContent = `Grade ${selectedGrade} Subjects`;
+                    currentGrade = card.getAttribute('data-grade');
+                    selectedGradeTitle.textContent = `Grade ${currentGrade} Subjects`;
                     gradeSelection.classList.add('hidden');
                     subjectSelection.classList.remove('hidden');
                 });
             });
 
-            // Subject Selection Interaction
+            // Subject Selection Event Listeners
+            const subjectCards = document.querySelectorAll('.subject-card');
             subjectCards.forEach(card => {
                 card.addEventListener('click', () => {
-                    const selectedSubject = card.getAttribute('data-subject');
+                    currentSubject = card.getAttribute('data-subject');
+                    
+                    // Update practice area header
+                    practiceTopic.textContent = `${currentSubject.charAt(0).toUpperCase() + currentSubject.slice(1)} Practice`;
+                    practiceDescription.textContent = `Solve these ${currentSubject} problems for Grade ${currentGrade}`;
+                    
+                    // Generate problems
+                    const problemGenerator = new MathProblemGenerator(currentGrade, currentSubject);
+                    currentProblems = problemGenerator.generateProblems();
+                    
+                    // Render problems
+                    renderProblems();
+                    
+                    // Reset score
+                    score = 0;
+                    totalQuestions = currentProblems.length;
+                    scoreDisplay.textContent = `0/${totalQuestions}`;
+                    
+                    // Show practice area
                     subjectSelection.classList.add('hidden');
                     practiceArea.classList.remove('hidden');
                 });
             });
 
-            // Back to Grades Button
+            // Render Problems Function
+            function renderProblems() {
+                problemsContainer.innerHTML = '';
+                currentProblems.forEach((problem, index) => {
+                    const problemCard = document.createElement('div');
+                    problemCard.classList.add('problem-card', 'p-4', 'bg-gray-100', 'rounded-lg');
+                    
+                    // Question
+                    const questionEl = document.createElement('div');
+                    questionEl.classList.add('text-xl', 'mb-4', 'font-semibold');
+                    questionEl.textContent = problem.question;
+                    
+                    // Answer Input
+                    const answerInput = document.createElement('input');
+                    answerInput.setAttribute('type', 'text');
+                    answerInput.classList.add('w-full', 'p-2', 'border', 'rounded', 'mt-2');
+                    answerInput.setAttribute('data-problem-index', index);
+                    
+                    // Feedback Area
+                    const feedbackEl = document.createElement('div');
+                    feedbackEl.classList.add('mt-2', 'text-sm', 'hidden');
+                    
+                    problemCard.appendChild(questionEl);
+                    problemCard.appendChild(answerInput);
+                    problemCard.appendChild(feedbackEl);
+                    
+                    problemsContainer.appendChild(problemCard);
+                });
+            }
+
+            // Check Answers
+            checkAnswersBtn.addEventListener('click', () => {
+                let currentScore = 0;
+                const inputs = problemsContainer.querySelectorAll('input');
+                
+                inputs.forEach((input, index) => {
+                    const problem = currentProblems[index];
+                    const feedbackEl = input.nextElementSibling;
+                    const userAnswer = input.value.trim();
+                    
+                    // Convert to number for calculation problems
+                    const correctAnswer = problem.answer;
+                    let isCorrect = false;
+                    
+                    // Different checking for different problem types
+                    switch(problem.type) {
+                        case 'calculation':
+                            isCorrect = parseFloat(userAnswer) === correctAnswer;
+                            break;
+                        case 'ordering':
+                            isCorrect = userAnswer === correctAnswer;
+                            break;
+                        case 'missing_number':
+                        case 'equation':
+                            isCorrect = parseInt(userAnswer) === correctAnswer;
+                            break;
+                    }
+                    
+                    // Update feedback
+                    feedbackEl.classList.remove('hidden');
+                    if (isCorrect) {
+                        currentScore++;
+                        feedbackEl.textContent = 'Correct! 🎉';
+                        feedbackEl.classList.add('text-green-600', 'feedback-correct');
+                        input.disabled = true;
+                    } else {
+                        feedbackEl.textContent = `Incorrect. Correct answer: ${correctAnswer}`;
+                        feedbackEl.classList.add('text-red-600', 'feedback-incorrect');
+                    }
+                });
+                
+                // Update total score
+                score = currentScore;
+                scoreDisplay.textContent = `${score}/${totalQuestions}`;
+            });
+
+            // Next Practice Set
+            nextPracticeBtn.addEventListener('click', () => {
+                // Regenerate problems
+                const problemGenerator = new MathProblemGenerator(currentGrade, currentSubject);
+                currentProblems = problemGenerator.generateProblems();
+                
+                // Render new problems
+                renderProblems();
+                
+                // Reset score
+                score = 0;
+                totalQuestions = currentProblems.length;
+                scoreDisplay.textContent = `0/${totalQuestions}`;
+            });
+
+            // Back to Grades
             backToGradesBtn.addEventListener('click', () => {
                 subjectSelection.classList.add('hidden');
                 gradeSelection.classList.remove('hidden');
