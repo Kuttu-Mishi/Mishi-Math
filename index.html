@@ -3,2427 +3,290 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MishiMaths Fun Maths Practice</title>
+    <title>Mishi Math - Your Learning Adventure</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
         :root {
-            --primary: #4361ee;
-            --secondary: #3f37c9;
-            --accent: #4cc9f0;
-            --success: #4ade80;
-            --warning: #fbbf24;
-            --danger: #f87171;
-            --dark: #111827;
-            --light: #f9fafb;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --primary-color: #6A5ACD;
+            --secondary-color: #FF6B6B;
+            --accent-color: #4ECDC4;
         }
 
         body {
-            background-color: #f0f9ff;
-            color: var(--dark);
-            line-height: 1.6;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, rgba(106, 90, 205, 0.1) 0%, rgba(255, 107, 107, 0.1) 100%);
+            min-height: 100vh;
+            color: #333;
         }
 
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            padding: 1.5rem;
-            color: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo-icon {
-            margin-right: 0.5rem;
-            font-size: 2rem;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-
-        .nav-links li {
-            margin-left: 1.5rem;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
+        .game-card {
             transition: all 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 3rem 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            color: #4b5563;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 1.5rem;
-            background-color: var(--primary);
-            color: white;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background-color: var(--secondary);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-secondary {
-            background-color: white;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-            margin-left: 1rem;
-        }
-
-        .btn-secondary:hover {
-            background-color: #f9fafb;
-            color: var(--secondary);
-            border-color: var(--secondary);
-        }
-
-        .stage-selector {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 3rem 0;
-        }
-
-        .stage-card {
-            background: white;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            width: 260px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .stage-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .stage-card-header {
-            padding: 1.5rem;
-            color: white;
-        }
-
-        .early-stage {
-            background: linear-gradient(135deg, #4ade80, #22c55e);
-        }
-
-        .primary-stage {
-            background: linear-gradient(135deg, #60a5fa, #2563eb);
-        }
-
-        .junior-stage {
-            background: linear-gradient(135deg, #a78bfa, #7c3aed);
-        }
-
-        .senior-stage {
-            background: linear-gradient(135deg, #f472b6, #db2777);
-        }
-
-        .stage-card-body {
-            padding: 1.5rem;
-        }
-
-        .stage-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .stage-card p {
-            margin-bottom: 1.5rem;
-            color: #6b7280;
-        }
-
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-            margin: 4rem 0;
-        }
-
-        .feature {
-            background: white;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            padding: 2rem;
-            width: 350px;
-            text-align: center;
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .feature h3 {
-            margin-bottom: 1rem;
-            color: var(--secondary);
-        }
-
-        .practice-area {
-            margin: 3rem 0;
-            padding: 2rem;
-            background: white;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            display: none; /* Initially hidden */
-        }
-
-        .practice-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .practice-content {
-            text-align: center;
-        }
-
-        .problem {
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            padding: 2rem;
-            background-color: #f3f4f6;
-            border-radius: 1rem;
-        }
-
-        .options {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .option-btn {
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            background: white;
-            border: 2px solid #d1d5db;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .option-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        .feedback {
-            font-size: 1.2rem;
-            margin: 2rem 0;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            display: none;
-        }
-
-        .feedback.correct {
-            background-color: #ecfdf5;
-            color: #047857;
-            border: 1px solid #10b981;
-        }
-
-        .feedback.incorrect {
-            background-color: #fef2f2;
-            color: #b91c1c;
-            border: 1px solid #ef4444;
-        }
-
-        .progress-container {
-            margin: 2rem 0;
-        }
-
-        .progress-bar {
-            height: 10px;
-            background-color: #e5e7eb;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background-color: var(--success);
-            width: 0;
-            transition: width 0.5s ease;
-        }
-
-        .topic-selector {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .topic-btn {
-            padding: 0.8rem 1.5rem;
-            background-color: #f3f4f6;
-            border: none;
-            border-radius: 2rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .topic-btn:hover, .topic-btn.active {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .difficulty-selector {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .star-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: #d1d5db;
-            cursor: pointer;
-        }
-
-        .star-btn.active {
-            color: #fbbf24;
-        }
-
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 3rem 0;
-            margin-top: 4rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            padding: 0 2rem;
-        }
-
-        .footer-section {
-            width: 250px;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h4 {
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-            color: var(--accent);
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 0.7rem;
-        }
-
-        .footer-section a {
-            color: #e5e7eb;
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        .footer-section a:hover {
-            color: var(--accent);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid #374151;
-            margin-top: 2rem;
-            color: #9ca3af;
-        }
-
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .features {
-                gap: 1rem;
-            }
-
-            .feature {
-                width: 100%;
-            }
-
-            .footer-section {
-                width: 100%;
-                margin-bottom: 1.5rem;
-            }
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .fade-in {
-            animation: fadeIn 0.6s ease-out forwards;
-        }
-
-        /* Celebration effects */
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background-color: #f00;
-            border-radius: 50%;
-            animation: fall 3s ease-out forwards;
-            z-index: 1000;
-        }
-
-        @keyframes fall {
-            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-        }
-
-        /* Math equation styles */
-        .math-equation {
-            font-family: 'Times New Roman', serif;
-            font-style: italic;
-        }
-
-        .math-fraction {
-            display: inline-block;
-            vertical-align: middle;
-            text-align: center;
-        }
-
-        .math-numerator, .math-denominator {
-            display: block;
-        }
-
-        .math-denominator {
-            border-top: 1px solid black;
-            padding-top: 2px;
-        }
-
-        /* Graph container for visualizations */
-        .graph-container {
-            width: 100%;
-            max-width: 400px;
-            height: 200px;
-            margin: 0 auto;
-            background-color: #f9fafb;
-            border: 1px solid #e5e7eb;
-            border-radius: 5px;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
             position: relative;
+            overflow: hidden;
         }
 
-        /* Mobile menu button */
-        .mobile-menu-btn {
-            display: none;
-            font-size: 1.5rem;
-            background: none;
-            border: none;
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, var(--primary-color), transparent);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .game-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .game-card:hover {
+            transform: scale(1.05) translateY(-10px);
+            box-shadow: 0 15px 35px rgba(106, 90, 205, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .mishi-btn {
+            background-color: var(--primary-color);
             color: white;
-            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
+        .mishi-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(106, 90, 205, 0.3);
+        }
 
-            .nav-links {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--secondary);
-                flex-direction: column;
-                padding: 1rem 0;
-                z-index: 10;
-            }
+        .modal {
+            background: rgba(0,0,0,0.5);
+        }
 
-            .nav-links.active {
-                display: flex;
-            }
+        .blob {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(106, 90, 205, 0.05) 0%, transparent 70%);
+            animation: blob-animation 20s infinite linear;
+            z-index: -2;
+        }
 
-            .nav-links li {
-                margin: 0.5rem 2rem;
+        @keyframes blob-animation {
+            0% {
+                transform: rotate(0deg) scale(1);
             }
+            50% {
+                transform: rotate(180deg) scale(1.2);
+            }
+            100% {
+                transform: rotate(360deg) scale(1);
+            }
+        }
+
+        .subject-icon {
+            transition: all 0.4s ease;
+        }
+
+        .game-card:hover .subject-icon {
+            transform: rotate(15deg) scale(1.1);
         }
     </style>
 </head>
-<body>
-    <header>
-        <nav>
-            <div class="logo">
-                <span class="logo-icon">🧮📚🏫</span>
-                <span>MishiMaths, Fun Maths</span>
+<body class="relative">
+    <div class="blob"></div>
+    
+    <!-- Header -->
+    <header class="bg-white bg-opacity-90 shadow-md p-4 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="/api/placeholder/50/50" alt="Mishi Math Logo" class="w-12 h-12 mr-3 rounded-full">
+                <h1 class="text-2xl font-bold" style="color: var(--primary-color);">Mishi Math</h1>
             </div>
-            <button class="mobile-menu-btn" id="mobile-menu-btn">☰</button>
-            <ul class="nav-links" id="nav-links">
-                <li><a href="#" id="home-link">Home</a></li>
-                <li><a href="#" id="practice-link">Practice</a></li>
-                <li><a href="#" id="curriculum-link">Curriculum</a></li>
-                <li><a href="#" id="about-link">About</a></li>
-            </ul>
-        </nav>
+            <nav class="flex items-center space-x-4">
+                <button id="leaderboardBtn" class="text-gray-700 hover:text-primary-color">
+                    Leaderboard
+                </button>
+                <button id="profileBtn" class="mishi-btn px-4 py-2 rounded-full">
+                    My Profile
+                </button>
+            </nav>
+        </div>
     </header>
 
-    <div class="container">
-        <section class="hero">
-            <h1>Fun Math Practice for NSW Students</h1>
-            <p>A fun and interactive way to master mathematics from Kindergarten to Year 12, aligned with the NSW curriculum.</p>
-            <a href="#" class="btn" id="start-practice-btn">Start Practicing Now</a>
-            <a href="#" class="btn btn-secondary" id="explore-curriculum-btn">Explore Curriculum</a>
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Motivational Header -->
+        <section class="text-center mb-12">
+            <h2 class="text-4xl font-bold mb-4" style="color: var(--primary-color);">
+                Your Math Learning Adventure Starts Here!
+            </h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                Unlock the magic of mathematics with personalized, fun, and interactive learning experiences tailored to your grade level.
+            </p>
         </section>
 
-        <section class="stage-selector" id="stage-selector">
-            <div class="stage-card">
-                <div class="stage-card-header early-stage">
-                    <h3>Early Stage 1</h3>
-                    <p>Kindergarten</p>
-                </div>
-                <div class="stage-card-body">
-                    <p>Begin your math journey with basic counting, patterns, and shapes.</p>
-                    <button class="btn" data-stage="early-stage-1">Start Learning</button>
-                </div>
+        <!-- Grade Selection -->
+        <section id="gradeSelection" class="grid md:grid-cols-3 gap-6">
+            <!-- Dynamic Grades will be generated here -->
+            <div class="grade-card bg-white rounded-xl shadow-lg p-6 text-center game-card cursor-pointer" data-grade="K">
+                <div class="text-6xl font-bold mb-4" style="color: var(--primary-color);">K</div>
+                <h3 class="text-xl font-semibold">Kindergarten</h3>
+                <p class="text-gray-500 text-sm">Ages 4-5</p>
+            </div>
+            
+            <!-- More grade cards follow similar pattern -->
+            <div class="grade-card bg-white rounded-xl shadow-lg p-6 text-center game-card cursor-pointer" data-grade="1">
+                <div class="text-6xl font-bold mb-4" style="color: var(--secondary-color);">1</div>
+                <h3 class="text-xl font-semibold">First Grade</h3>
+                <p class="text-gray-500 text-sm">Ages 6-7</p>
             </div>
 
-            <div class="stage-card">
-                <div class="stage-card-header primary-stage">
-                    <h3>Stage 1-2</h3>
-                    <p>Years 1-4</p>
-                </div>
-                <div class="stage-card-body">
-                    <p>Build foundations with addition, subtraction, multiplication, and division.</p>
-                    <button class="btn" data-stage="stage-1-2">Start Learning</button>
-                </div>
+            <!-- Add remaining grade cards (2-5) similarly -->
+        </section>
+
+        <!-- Subject Selection (Hidden by Default) -->
+        <section id="subjectSelection" class="hidden">
+            <div class="text-center mb-12">
+                <button id="backToGrades" class="text-gray-600 hover:text-primary-color mb-4 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+                    </svg>
+                    Back to Grades
+                </button>
+                <h2 id="selectedGradeTitle" class="text-4xl font-bold" style="color: var(--primary-color);">
+                    Grade X Subjects
+                </h2>
+                <p class="text-gray-600 mt-2">Choose a math subject to begin your learning journey!</p>
             </div>
 
-            <div class="stage-card">
-                <div class="stage-card-header junior-stage">
-                    <h3>Stage 3-4</h3>
-                    <p>Years 5-8</p>
+            <div id="subjectsContainer" class="grid md:grid-cols-3 gap-6">
+                <!-- Math Subjects -->
+                <div class="subject-card bg-white rounded-xl shadow-lg p-6 text-center game-card cursor-pointer" data-subject="counting">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto subject-icon mb-4" style="color: var(--primary-color);" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <h3 class="text-xl font-semibold mb-2">Counting</h3>
+                    <p class="text-gray-600 text-sm">Learn number recognition and basics</p>
                 </div>
-                <div class="stage-card-body">
-                    <p>Explore fractions, decimals, algebra, and geometry.</p>
-                    <button class="btn" data-stage="stage-3-4">Start Learning</button>
-                </div>
-            </div>
 
-            <div class="stage-card">
-                <div class="stage-card-header senior-stage">
-                    <h3>Stage 5-6</h3>
-                    <p>Years 9-12</p>
+                <div class="subject-card bg-white rounded-xl shadow-lg p-6 text-center game-card cursor-pointer" data-subject="addition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto subject-icon mb-4" style="color: var(--secondary-color);" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <h3 class="text-xl font-semibold mb-2">Addition</h3>
+                    <p class="text-gray-600 text-sm">Master adding numbers together</p>
                 </div>
-                <div class="stage-card-body">
-                    <p>Master advanced algebra, trigonometry, and calculus.</p>
-                    <button class="btn" data-stage="stage-5-6">Start Learning</button>
+
+                <!-- More subjects follow similar pattern -->
+                <div class="subject-card bg-white rounded-xl shadow-lg p-6 text-center game-card cursor-pointer" data-subject="subtraction">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto subject-icon mb-4" style="color: var(--accent-color);" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+                    </svg>
+                    <h3 class="text-xl font-semibold mb-2">Subtraction</h3>
+                    <p class="text-gray-600 text-sm">Learn to subtract like a pro</p>
                 </div>
             </div>
         </section>
 
-        <section class="practice-area" id="practice-area">
-            <div class="practice-header">
-                <h2 id="current-topic">Addition Practice</h2>
-                <button class="btn btn-secondary" id="back-btn">Back to Selection</button>
-            </div>
-
-            <div class="topic-selector" id="topic-selector">
+        <!-- Practice Area (Hidden by Default) -->
+        <section id="practiceArea" class="hidden">
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <div class="text-center mb-8">
+                    <h2 id="practiceTopic" class="text-3xl font-bold" style="color: var(--primary-color);">
+                        Counting Practice
+                    </h2>
+                    <p id="practiceDescription" class="text-gray-600 mt-2">
+                        Test and improve your counting skills!
+                    </p>
                 </div>
 
-            <div class="difficulty-selector">
-                <span>Difficulty: </span>
-                <button class="star-btn active" data-level="1">★</button>
-                <button class="star-btn" data-level="2">★</button>
-                <button class="star-btn" data-level="3">★</button>
-            </div>
+                <div id="practiceContent" class="grid md:grid-cols-2 gap-6">
+                    <!-- Practice problems will be dynamically generated here -->
+                    <div class="bg-gray-100 rounded-lg p-4">
+                        <h3 class="text-xl font-semibold mb-4">Problem 1</h3>
+                        <div id="problem1" class="text-center">
+                            <!-- Dynamic problem will be inserted here -->
+                        </div>
+                    </div>
 
-            <div class="practice-content">
-                <div class="problem" id="problem">
-                    5 + 3 = ?
-                </div>
-
-                <div class="options" id="options">
-                    <button class="option-btn">6</button>
-                    <button class="option-btn">7</button>
-                    <button class="option-btn">8</button>
-                    <button class="option-btn">9</button>
-                </div>
-
-                <div class="feedback correct" id="feedback-correct">
-                    <p>Well done! That's correct! 🎉</p>
-                </div>
-
-                <div class="feedback incorrect" id="feedback-incorrect">
-                    <p>Not quite right. Try again! 💪</p>
-                </div>
-
-                <button class="btn" id="next-btn">Next Problem</button>
-
-                <div class="progress-container">
-                    <p>Progress: <span id="progress-text">1/10</span></p>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progress-fill"></div>
+                    <div class="bg-gray-100 rounded-lg p-4">
+                        <h3 class="text-xl font-semibold mb-4">Problem 2</h3>
+                        <div id="problem2" class="text-center">
+                            <!-- Dynamic problem will be inserted here -->
+                        </div>
                     </div>
                 </div>
+
+                <div class="mt-8 flex justify-center space-x-4">
+                    <button id="checkAnswersBtn" class="mishi-btn px-6 py-3 rounded-full">
+                        Check Answers
+                    </button>
+                    <button id="nextPracticeBtn" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-full hover:bg-gray-300">
+                        Next Problems
+                    </button>
+                </div>
             </div>
         </section>
+    </main>
 
-        <section class="features">
-            <div class="feature fade-in">
-                <div class="feature-icon">📊</div>
-                <h3>Track Progress</h3>
-                <p>Monitor improvement with detailed statistics and achievement badges.</p>
-            </div>
-
-            <div class="feature fade-in">
-                <div class="feature-icon">🎯</div>
-                <h3>Adaptive Learning</h3>
-                <p>Problems adjust to your skill level for optimal learning.</p>
-            </div>
-
-            <div class="feature fade-in">
-                <div class="feature-icon">🏆</div>
-                <h3>Fun Rewards</h3>
-                <p>Earn points, unlock achievements, and compete with friends.</p>
-            </div>
-
-            <div class="feature fade-in">
-                <div class="feature-icon">📱</div>
-                <h3>Anywhere Access</h3>
-                <p>Practice on any device, anytime, with progress synced.</p>
-            </div>
-        </section>
-    </div>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>MishiMaths</h4>
-                <p>Making math fun and accessible for all NSW students from K-12.</p>
-            </div>
-
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Practice</a></li>
-                    <li><a href="#">Curriculum</a></li>
-                    <li><a href="#">Parents Guide</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>Resources</h4>
-                <ul>
-                    <li><a href="#">NSW Syllabus</a></li>
-                    <li><a href="#">Math Concepts</a></li>
-                    <li><a href="#">Exam Prep</a></li>
-                    <li><a href="#">Learning Tips</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <ul>
-                    <li>Email: info@mishimaths.com</li>
-                    <li>Phone: (02) 1234 5678</li>
-                    <li>Support Hours: 9AM-5PM AEST</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="copyright">
-            <p>&copy; 2025 MishiMaths. All rights reserved.</p>
+    <!-- Footer -->
+    <footer class="bg-white bg-opacity-90 shadow-md p-6 mt-12">
+        <div class="container mx-auto text-center">
+            <p class="text-gray-600">
+                © 2024 Mishi Math. All rights reserved. 
+                <a href="#" class="text-primary-color hover:underline ml-2">Privacy Policy</a>
+                <a href="#" class="text-primary-color hover:underline ml-2">Terms of Service</a>
+            </p>
         </div>
     </footer>
 
     <script>
-        // DOM elements
-        const stageSelector = document.getElementById('stage-selector');
-        const practiceArea = document.getElementById('practice-area');
-        const topicSelector = document.getElementById('topic-selector');
-        const currentTopicElement = document.getElementById('current-topic');
-        const problemElement = document.getElementById('problem');
-        const optionsElement = document.getElementById('options');
-        const feedbackCorrect = document.getElementById('feedback-correct');
-        const feedbackIncorrect = document.getElementById('feedback-incorrect');
-        const nextButton = document.getElementById('next-btn');
-        const backButton = document.getElementById('back-btn');
-        const progressText = document.getElementById('progress-text');
-        const progressFill = document.getElementById('progress-fill');
-        const startPracticeBtn = document.getElementById('start-practice-btn');
-        const homeLink = document.getElementById('home-link');
-        const practiceLink = document.getElementById('practice-link');
-        const curriculumLink = document.getElementById('curriculum-link');
-        const aboutLink = document.getElementById('about-link');
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const navLinks = document.getElementById('nav-links');
-        const difficultySelector = document.querySelector('.difficulty-selector');
-        const starButtons = document.querySelectorAll('.star-btn');
+        // Interactive JavaScript will go here
+        document.addEventListener('DOMContentLoaded', () => {
+            const gradeCards = document.querySelectorAll('.grade-card');
+            const subjectCards = document.querySelectorAll('.subject-card');
+            const gradeSelection = document.getElementById('gradeSelection');
+            const subjectSelection = document.getElementById('subjectSelection');
+            const practiceArea = document.getElementById('practiceArea');
+            const backToGradesBtn = document.getElementById('backToGrades');
+            const selectedGradeTitle = document.getElementById('selectedGradeTitle');
 
-        // Current state
-        let currentStage = '';
-        let currentTopicId = '';
-        let currentDifficulty = 1;
-        let currentProblem = {};
-        let problemsCompleted = 0;
-        let totalProblems = 10;
-        let correctAnswers = 0;
-        let currentProblemIndex = 0;
-        let currentProblemsSet = [];
-
-        // NSW Curriculum Topics by Stage
-        const curriculumTopics = {
-            'early-stage-1': [
-                { id: 'counting', name: 'Counting', icon: '🔢' },
-                { id: 'addition', name: 'Addition', icon: '➕' },
-                { id: 'subtraction', name: 'Subtraction', icon: '➖' },
-                { id: 'shapes', name: 'Shapes', icon: '⭐' },
-                { id: 'patterns', name: 'Patterns', icon: '🔄' },
-                { id: 'measurement', name: 'Measurement', icon: '📏' }
-            ],
-            'stage-1-2': [
-                { id: 'addition', name: 'Addition', icon: '➕' },
-                { id: 'subtraction', name: 'Subtraction', icon: '➖' },
-                { id: 'multiplication', name: 'Multiplication', icon: '✖️' },
-                { id: 'division', name: 'Division', icon: '➗' },
-                { id: 'fractions', name: 'Fractions', icon: '🍕' },
-                { id: 'measurement', name: 'Measurement', icon: '📏' },
-                { id: 'money', name: 'Money', icon: '💰' },
-                { id: 'time', name: 'Time', icon: '⏰' }
-            ],
-            'stage-3-4': [
-                { id: 'fractions', name: 'Fractions', icon: '🍕' },
-                { id: 'decimals', name: 'Decimals', icon: '🔢' },
-                { id: 'percentages', name: 'Percentages', icon: '📊' },
-                { id: 'algebra_basics', name: 'Basic Algebra', icon: '🧮' },
-                { id: 'geometry_basics', name: 'Basic Geometry', icon: '📐' },
-                { id: 'probability_basics', name: 'Basic Probability', icon: '🎲' },
-                { id: 'statistics_basics', name: 'Basic Statistics', icon: '📊' },
-                { id: 'ratios', name: 'Ratios', icon: '⚖️' }
-            ],
-            'stage-5-6': [
-                { id: 'algebra_advanced', name: 'Advanced Algebra', icon: '🧮' },
-                { id: 'functions', name: 'Functions', icon: '📈' },
-                { id: 'trigonometry', name: 'Trigonometry', icon: '📐' },
-                { id: 'calculus_intro', name: 'Introduction to Calculus', icon: '∫' },
-                { id: 'statistics_advanced', name: 'Advanced Statistics', icon: '📊' },
-                { id: 'probability_advanced', name: 'Advanced Probability', icon: '🎲' },
-                { id: 'logarithms', name: 'Logarithms', icon: '📝' },
-                { id: 'linear_relations', name: 'Linear Relations', icon: '📉' },
-                { id: 'vectors', name: 'Vectors', icon: '↗️' }
-            ]
-        };
-
-        // Problem generators
-        const problemGenerators = {
-            'counting': (difficulty) => {
-                const max = difficulty === 1 ? 10 : difficulty === 2 ? 20 : 50;
-                const count = Math.floor(Math.random() * max) + 1;
-                return {
-                    question: `How many objects are in the group?<br>${'🔵 '.repeat(count)}`,
-                    answer: count,
-                    options: generateOptions(count, max)
-                };
-            },
-
-            'addition': (difficulty) => {
-                let max, a, b;
-                if (difficulty === 1) {
-                    max = 10;
-                    a = Math.floor(Math.random() * 5) + 1;
-                    b = Math.floor(Math.random() * 5) + 1;
-                } else if (difficulty === 2) {
-                    max = 20;
-                    a = Math.floor(Math.random() * 10) + 1;
-                    b = Math.floor(Math.random() * 10) + 1;
-                } else {
-                    max = 100;
-                    a = Math.floor(Math.random() * 50) + 10;
-                    b = Math.floor(Math.random() * 50) + 10;
-                }
-
-                return {
-                    question: `${a} + ${b} = ?`,
-                    answer: a + b,
-                    options: generateOptions(a + b, max)
-                };
-            },
-
-            'subtraction': (difficulty) => {
-                let max, a, b;
-                if (difficulty === 1) {
-                    max = 10;
-                    a = Math.floor(Math.random() * 5) + 5;
-                    b = Math.floor(Math.random() * a);
-                } else if (difficulty === 2) {
-                    max = 20;
-                    a = Math.floor(Math.random() * 10) + 10;
-                    b = Math.floor(Math.random() * 10) + 1;
-                } else {
-                    max = 100;
-                    a = Math.floor(Math.random() * 50) + 50;
-                    b = Math.floor(Math.random() * 40) + 10;
-                }
-
-                return {
-                    question: `${a} - ${b} = ?`,
-                    answer: a - b,
-                    options: generateOptions(a - b, max)
-                };
-            },
-
-            'multiplication': (difficulty) => {
-                let max, a, b;
-                if (difficulty === 1) {
-                    max = 25;
-                    a = Math.floor(Math.random() * 5) + 1;
-                    b = Math.floor(Math.random() * 5) + 1;
-                } else if (difficulty === 2) {
-                    max = 100;
-                    a = Math.floor(Math.random() * 10) + 1;
-                    b = Math.floor(Math.random() * 10) + 1;
-                } else {
-                    max = 144;
-                    a = Math.floor(Math.random() * 12) + 1;
-                    b = Math.floor(Math.random() * 12) + 1;
-                }
-
-                return {
-                    question: `${a} × ${b} = ?`,
-                    answer: a * b,
-                    options: generateOptions(a * b, max)
-                };
-            },
-
-            'division': (difficulty) => {
-                let max, a, b, c;
-                if (difficulty === 1) {
-                    max = 10;
-                    b = Math.floor(Math.random() * 5) + 1;
-                    c = Math.floor(Math.random() * 5) + 1;
-                    a = b * c;
-                } else if (difficulty === 2) {
-                    max = 10;
-                    b = Math.floor(Math.random() * 10) + 1;
-                    c = Math.floor(Math.random() * 10) + 1;
-                    a = b * c;
-                } else {
-                    max = 12;
-                    b = Math.floor(Math.random() * 12) + 1;
-                    c = Math.floor(Math.random() * 12) + 1;
-                    a = b * c;
-                }
-
-                return {
-                    question: `${a} ÷ ${b} = ?`,
-                    answer: c,
-                    options: generateOptions(c, max)
-                };
-            },
-
-            'fractions': (difficulty) => {
-                if (difficulty === 1) {
-                    const num = Math.floor(Math.random() * 3) + 1;
-                    const den = Math.floor(Math.random() * 3) + 2;
-                    return {
-                        question: `What fraction of the shape is shaded? <div style="width: 50px; height: 50px; background: lightgray; border: 1px solid black; display: flex; flex-direction: column;">${Array.from({ length: den }).map((_, i) => `<div style="flex-grow: 1; background: ${i < num ? 'lightblue' : ''}"></div>`).join('')}</div>`,
-                        answer: `<span class="math-inline">\{num\}/</span>{den}`,
-                        options: generateFractionOptions(num, den)
-                    };
-                } else if (difficulty === 2) {
-                    const num1 = Math.floor(Math.random() * 5) + 1;
-                    const den1 = Math.floor(Math.random() * 5) + 2;
-                    const num2 = Math.floor(Math.random() * 5) + 1;
-                    const den2 = den1;
-                    const answerNum = num1 + num2;
-                    return {
-                        question: `$<span class="math-inline">\\\\frac\{</span>{num1}}{<span class="math-inline">\{den1\}\} \+ \\\\frac\{</span>{num2}}{<span class="math-inline">\{den2\}\} \= ?</span>$`,
-                        answer: `<span class="math-inline">\{answerNum\}/</span>{den1}`,
-                        options: generateFractionOptions(answerNum, den1)
-                    };
-                } else {
-                    const num1 = Math.floor(Math.random() * 5) + 1;
-                    const den1 = Math.floor(Math.random() * 5) + 2;
-                    const num2 = Math.floor(Math.random() * 5) + 1;
-                    const den2 = Math.floor(Math.random() * 5) + 2;
-                    const lcm = findLCM(den1, den2);
-                    const newNum1 = num1 * (lcm / den1);
-                    const newNum2 = num2 * (lcm / den2);
-                    const answerNum = newNum1 + newNum2;
-                    const simplified = simplifyFraction(answerNum, lcm);
-                    return {
-                        question: `$<span class="math-inline">\\\\frac\{</span>{num1}}{<span class="math-inline">\{den1\}\} \+ \\\\frac\{</span>{num2}}{<span class="math-inline">\{den2\}\} \= ?</span>$`,answer: simplified.join('/'),
-                        options: generateComplexFractionOptions(answerNum, lcm)
-                    };
-                }
-            },
-
-            'decimals': (difficulty) => {
-                if (difficulty === 1) {
-                    const num = Math.floor(Math.random() * 100) / 10;
-                    return {
-                        question: `What is the decimal representation of ${num}?`,
-                        answer: num.toFixed(1),
-                        options: generateDecimalOptions(num, 1)
-                    };
-                } else if (difficulty === 2) {
-                    const num1 = Math.floor(Math.random() * 100) / 10;
-                    const num2 = Math.floor(Math.random() * 100) / 10;
-                    return {
-                        question: `${num1.toFixed(1)} + ${num2.toFixed(1)} = ?`,
-                        answer: (num1 + num2).toFixed(1),
-                        options: generateDecimalOptions(num1 + num2, 1)
-                    };
-                } else {
-                    const num1 = Math.floor(Math.random() * 100) / 100;
-                    const num2 = Math.floor(Math.random() * 10) / 100;
-                    return {
-                        question: `${num1.toFixed(2)} - ${num2.toFixed(2)} = ?`,
-                        answer: (num1 - num2).toFixed(2),
-                        options: generateDecimalOptions(num1 - num2, 2)
-                    };
-                }
-            },
-
-            'percentages': (difficulty) => {
-                if (difficulty === 1) {
-                    const percentage = Math.floor(Math.random() * 100);
-                    return {
-                        question: `What is ${percentage}% of 100?`,
-                        answer: percentage.toString(),
-                        options: generatePercentageOptions(percentage)
-                    };
-                } else if (difficulty === 2) {
-                    const part = Math.floor(Math.random() * 50) + 1;
-                    const whole = Math.floor(Math.random() * 50) + 51;
-                    const percentage = Math.round((part / whole) * 100);
-                    return {
-                        question: `What percentage is ${part} of ${whole}?`,
-                        answer: percentage.toString() + '%',
-                        options: generatePercentageOptions(percentage)
-                    };
-                } else {
-                    const amount = Math.floor(Math.random() * 100) + 50;
-                    const percentage = Math.floor(Math.random() * 50) + 10;
-                    const result = (amount * (1 + percentage / 100)).toFixed(2);
-                    return {
-                        question: `What is the total amount if $${amount} is increased by ${percentage}%?`,
-                        answer: '$' + result,
-                        options: generateCurrencyOptions(parseFloat(result))
-                    };
-                }
-            },
-
-            'algebra_basics': (difficulty) => {
-                if (difficulty === 1) {
-                    const x = Math.floor(Math.random() * 10) + 1;
-                    const a = Math.floor(Math.random() * 5) + 1;
-                    const b = a * x + Math.floor(Math.random() * 10) + 1;
-                    return {
-                        question: `${a}x + ${b - a * x} = ${b}. What is x?`,
-                        answer: x.toString(),
-                        options: generateAlgebraOptions(x)
-                    };
-                } else if (difficulty === 2) {
-                    const x = Math.floor(Math.random() * 10) + 1;
-                    const y = Math.floor(Math.random() * 10) + 1;
-                    const a1 = Math.floor(Math.random() * 5) + 1;
-                    const b1 = Math.floor(Math.random() * 5) + 1;
-                    const c1 = a1 * x + b1 * y;
-                    const a2 = Math.floor(Math.random() * 5) + 1;
-                    const b2 = Math.floor(Math.random() * 5) + 1;
-                    const c2 = a2 * x + b2 * y;
-                    return {
-                        question: `Solve the system of equations: <br> ${a1}x + ${b1}y = ${c1} <br> ${a2}x + ${b2}y = ${c2}. What is x?`,
-                        answer: x.toString(),
-                        options: generateAlgebraOptions(x)
-                    };
-                } else {
-                    const x = Math.floor(Math.random() * 5) + 1;
-                    const expression = `(x + ${Math.floor(Math.random() * 5) + 1})(x - ${Math.floor(Math.random() * 5) + 1})`;
-                    const expanded = `x^2 ${x * (Math.floor(Math.random() * 5) + 1) - x * (Math.floor(Math.random() * 5) + 1) > 0 ? '+' : ''} ${x * (Math.floor(Math.random() * 5) + 1) - x * (Math.floor(Math.random() * 5) + 1) !== 0 ? x * Math.abs((Math.floor(Math.random() * 5) + 1) - (Math.floor(Math.random() * 5) + 1)) : ''}x - ${(Math.floor(Math.random() * 5) + 1) * (Math.floor(Math.random() * 5) + 1)}`;
-                    return {
-                        question: `Expand the following expression: ${expression}`,
-                        answer: expanded,
-                        options: generateAlgebraicExpressionOptions(x)
-                    };
-                }
-            },
-
-            'geometry_basics': (difficulty) => {
-                if (difficulty === 1) {
-                    const side = Math.floor(Math.random() * 10) + 1;
-                    return {
-                        question: `What is the perimeter of a square with side length ${side} cm?`,
-                        answer: (4 * side).toString() + ' cm',
-                        options: generateGeometryOptions(4 * side)
-                    };
-                } else if (difficulty === 2) {
-                    const base = Math.floor(Math.random() * 10) + 5;
-                    const height = Math.floor(Math.random() * 10) + 5;
-                    return {
-                        question: `What is the area of a triangle with base ${base} cm and height ${height} cm?`,
-                        answer: (0.5 * base * height).toString() + ' cm²',
-                        options: generateGeometryOptions(0.5 * base * height)
-                    };
-                } else {
-                    const radius = Math.floor(Math.random() * 5) + 3;
-                    return {
-                        question: `What is the approximate circumference of a circle with radius ${radius} cm? (Use π ≈ 3.14)`,
-                        answer: (2 * Math.PI * radius).toFixed(2) + ' cm',
-                        options: generateGeometryOptions(2 * Math.PI * radius)
-                    };
-                }
-            },
-
-            'probability_basics': (difficulty) => {
-                if (difficulty === 1) {
-                    return {
-                        question: `If you flip a fair coin, what is the probability of getting heads?`,
-                        answer: '1/2',
-                        options: ['1/2', '1/3', '1/4', '1/5']
-                    };
-                } else if (difficulty === 2) {
-                    const red = Math.floor(Math.random() * 5) + 1;
-                    const blue = Math.floor(Math.random() * 5) + 1;
-                    return {
-                        question: `A bag contains ${red} red marbles and ${blue} blue marbles. What is the probability of picking a red marble?`,
-                        answer: `<span class="math-inline">\{red\}/</span>{red + blue}`,
-                        options: generateProbabilityOptions(red, blue)
-                    };
-                } else {
-                    const dice1 = Math.floor(Math.random() * 6) + 1;
-                    const dice2 = Math.floor(Math.random() * 6) + 1;
-                    const sum = dice1 + dice2;
-                    const targetSum = Math.floor(Math.random() * 10) + 2;
-                    let favorableOutcomes = 0;
-                    for (let i = 1; i <= 6; i++) {
-                        for (let j = 1; j <= 6; j++) {
-                            if (i + j === targetSum) {
-                                favorableOutcomes++;
-                            }
-                        }
-                    }
-                    return {
-                        question: `If you roll two fair six-sided dice, what is the probability that the sum is ${targetSum}?`,
-                        answer: `${favorableOutcomes}/36`,
-                        options: generateProbabilityDiceOptions(targetSum)
-                    };
-                }
-            },
-
-            'statistics_basics': (difficulty) => {
-                if (difficulty === 1) {
-                    const numbers = Array.from({ length: 5 }, () => Math.floor(Math.random() * 10) + 1);
-                    return {
-                        question: `What is the mean of the following numbers: ${numbers.join(', ')}?`,
-                        answer: (numbers.reduce((sum, num) => sum + num, 0) / numbers.length).toFixed(1),
-                        options: generateStatisticsOptions(numbers)
-                    };
-                } else if (difficulty === 2) {
-                    const numbers = Array.from({ length: 7 }, () => Math.floor(Math.random() * 15) + 5).sort((a, b) => a - b);
-                    return {
-                        question: `What is the median of the following numbers: ${numbers.join(', ')}?`,
-                        answer: numbers[Math.floor(numbers.length / 2)].toString(),
-                        options: generateStatisticsOptions(numbers)
-                    };
-                } else {
-                    const numbers = Array.from({ length: 10 }, () => Math.floor(Math.random() * 8) + 2);
-                    const modeMap = {};
-                    let maxCount = 0;
-                    let modes = [];
-                    numbers.forEach(num => {
-                        modeMap[num] = (modeMap[num] || 0) + 1;
-                        if (modeMap[num] > maxCount) {
-                            modes = [num];
-                            maxCount = modeMap[num];
-                        } else if (modeMap[num] === maxCount) {
-                            modes.push(num);
-                        }
-                    });
-                    return {
-                        question: `What is the mode of the following numbers: ${numbers.join(', ')}?`,
-                        answer: [...new Set(modes)].join(', '),
-                        options: generateStatisticsOptions(numbers)
-                    };
-                }
-            },
-
-            'ratios': (difficulty) => {
-                if (difficulty === 1) {
-                    const a = Math.floor(Math.random() * 5) + 1;
-                    const b = Math.floor(Math.random() * 5) + 1;
-                    return {
-                        question: `Simplify the ratio <span class="math-inline">\{a \* 2\}\:</span>{b * 2}`,
-                        answer: `<span class="math-inline">\{a\}\:</span>{b}`,
-                        options: generateRatioOptions(a, b)
-                    };
-                } else if (difficulty === 2) {
-                    const a = Math.floor(Math.random() * 10) + 1;
-                    const b = Math.floor(Math.random() * 10) + 1;
-                    const total = Math.floor(Math.random() * 20) + 10;
-                    const partA = Math.round((a / (a + b)) * total);
-                    return {
-                        question: `Divide ${total} in the ratio <span class="math-inline">\{a\}\:</span>{b}$. What is the first part?`,
-                        answer: partA.toString(),
-                        options: generateRatioPartOptions(a, b, total)
-                    };
-                } else {
-                    const a = Math.floor(Math.random() * 8) + 2;
-                    const b = Math.floor(Math.random() * 8) + 2;
-                    const c = Math.floor(Math.random() * 8) + 2;
-                    return {
-                        question: `Simplify the ratio <span class="math-inline">\{a \* 3\}\:</span>{b * 3}:${c * 3}`,
-                        answer: `<span class="math-inline">\{a\}\:</span>{b}:${c}`,
-                        options: generateTripleRatioOptions(a, b, c)
-                    };
-                }
-            },
-
-            'algebra_advanced': (difficulty) => {
-                if (difficulty === 1) {
-                    const a = Math.floor(Math.random() * 5) + 2;
-                    const b = Math.floor(Math.random() * 10) + 5;
-                    return {
-                        question: `Solve for x: ${a}x^2 = ${a * b}`,
-                        answer: `±${Math.sqrt(b).toFixed(2)}`,
-                        options: generateAdvancedAlgebraOptions(b)
-                    };
-                } else if (difficulty === 2) {
-                    const a = Math.floor(Math.random() * 3) + 1;
-                    const b = Math.floor(Math.random() * 8) + 2;
-                    const c = Math.floor(Math.random() * 15) + 3;
-                    const discriminant = b * b - 4 * a * c;
-                    const sqrtDiscriminant = Math.sqrt(Math.abs(discriminant));
-                    const x1 = (-b + sqrtDiscriminant) / (2 * a);
-                    const x2 = (-b - sqrtDiscriminant) / (2 * a);
-                    return {
-                        question: `Solve for x: ${a}x^2 + ${b}x + ${c} = 0`,
-                        answer: discriminant >= 0 ? `${x1.toFixed(2)}, ${x2.toFixed(2)}` : `Complex roots`,
-                        options: generateQuadraticSolutionOptions(x1, x2, discriminant)
-                    };
-                } else {
-                    const base = Math.floor(Math.random() * 5) + 2;
-                    const power = Math.floor(Math.random() * 4) + 3;
-                    const result = Math.pow(base, power);
-                    return {
-                        question: `Evaluate: <span class="math-inline">\{base\}^</span>{power}`,
-                        answer: result.toString(),
-                        options: generatePowerOptions(base, power)
-                    };
-                }
-            },
-
-            'functions': (difficulty) => {
-                if (difficulty === 1) {
-                    const m = Math.floor(Math.random() * 5) + 1;
-                    const c = Math.floor(Math.random() * 10) + 1;
-                    return {
-                        question: `If f(x) = ${m}x + ${c}, what is f(2)?`,
-                        answer: (m * 2 + c).toString(),
-                        options: generateFunctionOptions(m, c)
-                    };
-                } else if (difficulty === 2) {
-                    const a = Math.floor(Math.random() * 3) + 1;
-                    const b = Math.floor(Math.random() * 5) + 1;
-                    return {
-                        question: `If g(x) = ${a}x^2 + ${b}, what is g(-1)?`,
-                        answer: (a * (-1) * (-1) + b).toString(),
-                        options: generateFunctionOptions(a, b, true)
-                    };
-                } else {
-                    const a = Math.floor(Math.random() * 2) + 1;
-                    const b = Math.floor(Math.random() * 3) + 1;
-                    const c = Math.floor(Math.random() * 2) + 1;
-                    const d = Math.floor(Math.random() * 3) + 1;
-                    return {
-                        question: `If h(x) = ${a}x + ${b} and k(x) = ${c}x - ${d}, what is (h o k)(x)?`,
-                        answer: `${a * c}x - ${a * d - b > 0 ? '-' : '+'} ${Math.abs(a * d - b)}`,
-                        options: generateCompositeFunctionOptions(a, b, c, d)
-                    };
-                }
-            },
-
-            'trigonometry': (difficulty) => {
-                if (difficulty === 1) {
-                    const angle = 30;
-                    return {
-                        question: `What is the value of sin(${angle}°)?`,
-                        answer: '0.5',
-                        options: ['0.5', '√3/2', '1/√2', '1']
-                    };
-                } else if (difficulty === 2) {
-                    const opposite = Math.floor(Math.random() * 10) + 1;
-                    const adjacent = Math.floor(Math.random() * 10) + 1;
-                    return {
-                        question: `In a right-angled triangle, the opposite side is ${opposite} and the adjacent side is ${adjacent}. What is tan(θ)?`,
-                        answer: (opposite / adjacent).toFixed(2),
-                        options: generateTrigOptions(opposite / adjacent)
-                    };
-                } else {
-                    const angle = 45;
-                    return {
-                        question: `What is the value of cos(${angle}°)?`,
-                        answer: (1 / Math.sqrt(2)).toFixed(3),
-                        options: [(1 / Math.sqrt(2)).toFixed(3), (Math.sqrt(3) / 2).toFixed(3), '0.5', '1']
-                    };
-                }
-            },
-
-            'calculus_intro': (difficulty) => {
-                if (difficulty === 1) {
-                    return {
-                        question: `What is the derivative of f(x) = x?`,
-                        answer: '1',
-                        options: ['1', 'x', '0', '2x']
-                    };
-                } else if (difficulty === 2) {
-                    const n = Math.floor(Math.random() * 5) + 2;
-                    return {
-                        question: `What is the derivative of f(x) = x^${n}?`,
-                        answer: `<span class="math-inline">\{n\}x^</span>{n - 1}`,
-                        options: generateCalculusDerivativeOptions(n)
-                    };
-                } else {
-                    return {
-                        question: `What is the integral of f(x) = 1 with respect to x?`,
-                        answer: 'x + C',
-                        options: ['x + C', '1 + C', '0 + C', 'x^2 + C']
-                    };
-                }
-            },
-
-            'statistics_advanced': (difficulty) => {
-                if (difficulty === 1) {
-                    const data = Array.from({ length: 6 }, () => Math.floor(Math.random() * 10) + 1);
-                    const mean = data.reduce((sum, num) => sum + num, 0) / data.length;
-                    const squaredDifferences = data.map(num => Math.pow(num - mean, 2));
-                    const variance = squaredDifferences.reduce((sum, diff) => sum + diff, 0) / data.length;
-                    return {
-                        question: `What is the variance of the following data: ${data.join(', ')}?`,
-                        answer: variance.toFixed(2),
-                        options: generateAdvancedStatisticsOptions(data)
-                    };
-                } else if (difficulty === 2) {
-                    const data1 = Array.from({ length: 5 }, () => Math.floor(Math.random() * 10) + 1);
-                    const data2 = Array.from({ length: 5 }, () => Math.floor(Math.random() * 10) + 1);
-                    const correlation = calculateCorrelation(data1, data2).toFixed(2);
-                    return {
-                        question: `What is the approximate correlation coefficient between [<span class="math-inline">\{data1\.join\(', '\)\}\] and \[</span>{data2.join(', ')}]?`,
-                        answer: correlation,
-                        options: generateCorrelationOptions(correlation)
-                    };
-                } else {
-                    const probability = Math.random();
-                    const n = 10;
-                    const k = Math.floor(Math.random() * (n + 1));
-                    const binomialProb = binomialProbability(n, k, probability).toFixed(3);
-                    return {
-                        question: `What is the probability of getting exactly ${k} successes in ${n} Bernoulli trials with probability of success ${probability.toFixed(1)}?`,
-                        answer: binomialProb,
-                        options: generateBinomialOptions(n, probability)
-                    };
-                }
-            },
-
-            'probability_advanced': (difficulty) => {
-                if (difficulty === 1) {
-                    const eventA = Math.random() * 0.8 + 0.2;
-                    const eventB = Math.random() * 0.8 + 0.2;
-                    const intersection = Math.min(eventA, eventB) * Math.random();
-                    const conditionalProb = (intersection / eventB).toFixed(2);
-                    return {
-                        question: `If P(A) = ${eventA.toFixed(2)}, P(B) = ${eventB.toFixed(2)}, and P(A ∩ B) = ${intersection.toFixed(2)}, what is P(A|B)?`,
-                        answer: conditionalProb,
-                        options: generateConditionalProbabilityOptions(conditionalProb)
-                    };
-                } else if (difficulty === 2) {
-                    const lambda = Math.random() * 5 + 1;
-                    const k = Math.floor(Math.random() * 5);
-                    const poissonProb = poissonProbability(lambda, k).toFixed(3);
-                    return {
-                        question: `If events occur according to a Poisson process with rate ${lambda.toFixed(1)}, what is the probability of ${k} events occurring in a unit interval?`,
-                        answer: poissonProb,
-                        options: generatePoissonOptions(lambda)
-                    };
-                } else {
-                    const mean = Math.random() * 5 + 5;
-                    const stdDev = Math.random() * 2 + 1;
-                    const x = mean + (Math.random() * 2 - 1) * 2 * stdDev;
-                    const zScore = ((x - mean) / stdDev).toFixed(2);
-                    return {
-                        question: `For a normal distribution with mean ${mean.toFixed(1)} and standard deviation ${stdDev.toFixed(1)}, what is the z-score of ${x.toFixed(2)}?`,
-                        answer: zScore,
-                        options: generateZScoreOptions(zScore)
-                    };
-                }
-            },
-
-            'logarithms': (difficulty) => {
-                if (difficulty === 1) {
-                    const base = Math.floor(Math.random() * 5) + 2;
-                    const result = Math.pow(base, Math.floor(Math.random() * 3) + 1);
-                    return {
-                        question: `What is log<sub style="font-size: 0.8em;"><span class="math-inline">\{base\}</sub\>\(</span>{result})?`,
-                        answer: Math.log(result) / Math.log(base),
-                        options: generateLogOptions(base, result)
-                    };
-                } else if (difficulty === 2) {
-                    const base = 10;
-                    const power = Math.floor(Math.random() * 4) - 1;
-                    const result = Math.pow(base, power);
-                    return {
-                        question: `What is log₁₀(${result})?`,
-                        answer: power.toString(),
-                        options: generateCommonLogOptions(power)
-                    };
-                } else {
-                    const a = Math.floor(Math.random() * 5) + 2;
-                    const b = Math.floor(Math.random() * 5) + 3;
-                    return {
-                        question: `Simplify: log(<span class="math-inline">\{a\}\) \+ log\(</span>{b})`,
-                        answer: `log(${a * b})`,
-                        options: [`log(${a * b})`, `log(${a + b})`, `log(${b / a})`, `log(${a^b})`]
-                    };
-                }
-            },
-
-            'linear_relations': (difficulty) => {
-                if (difficulty === 1) {
-                    const m = Math.floor(Math.random() * 5) + 1;
-                    const c = Math.floor(Math.random() * 10) + 1;
-                    return {
-                        question: `What is the y-intercept of the line y = ${m}x + ${c}?`,
-                        answer: c.toString(),
-                        options: generateLinearRelationOptions(c)
-                    };
-                } else if (difficulty === 2) {
-                    const x1 = Math.floor(Math.random() * 5) + 1;
-                    const y1 = Math.floor(Math.random() * 5) + 1;
-                    const x2 = x1 + Math.floor(Math.random() * 3) + 1;
-                    const y2 = y1 + Math.floor(Math.random() * 3) + 1;
-                    const slope = ((y2 - y1) / (x2 - x1)).toFixed(2);
-                    return {
-                        question: `What is the slope of the line passing through (${x1}, <span class="math-inline">\{y1\}\) and \(</span>{x2}, ${y2})?`,
-                        answer: slope,
-                        options: generateSlopeOptions(parseFloat(slope))
-                    };
-                } else {
-                    const m = Math.floor(Math.random() * 3) + 1;
-                    const x1 = Math.floor(Math.random() * 5) + 1;
-                    const y1 = Math.floor(Math.random() * 5) + 1;
-                    const c = y1 - m * x1;
-                    return {
-                        question: `What is the equation of the line with slope <span class="math-inline">\{m\} passing through \(</span>{x1}, ${y1})?`,
-                        answer: `y = ${m}x + ${c}`,
-                        options: generateLineEquationOptions(m, c)
-                    };
-                }
-            },
-
-            'vectors': (difficulty) => {
-                if (difficulty === 1) {
-                    const x = Math.floor(Math.random() * 5) + 1;
-                    const y = Math.floor(Math.random() * 5) + 1;
-                    return {
-                        question: `What is the magnitude of the vector <${x}, ${y}>?`,
-                        answer: Math.sqrt(x * x + y * y).toFixed(2),
-                        options: generateVectorMagnitudeOptions(x, y)
-                    };
-                } else if (difficulty === 2) {
-                    const x1 = Math.floor(Math.random() * 5) + 1;
-                    const y1 = Math.floor(Math.random() * 5) + 1;
-                    const x2 = Math.floor(Math.random() * 5) + 1;
-                    const y2 = Math.floor(Math.random() * 5) + 1;
-                    return {
-                        question: `What is the result of adding the vectors <${x1}, <span class="math-inline">\{y1\}\> and <</span>{x2}, ${y2}>?`,
-                        answer: `<${x1 + x2}, ${y1 + y2}>`,
-                        options: generateVectorAdditionOptions(x1, y1, x2, y2)
-                    };
-                } else {
-                    const x = Math.floor(Math.random() * 5) + 1;
-                    const y = Math.floor(Math.random() * 5) + 1;
-                    const scalar = Math.floor(Math.random() * 3) + 2;
-                    return {
-                        question: `What is the result of multiplying the vector <${x}, ${y}> by the scalar ${scalar}?`,
-                        answer: `<${x * scalar}, ${y * scalar}>`,
-                        options: generateScalarMultiplicationOptions(x, y, scalar)
-                    };
-                }
-            },
-
-            'shapes': (difficulty) => {
-                if (difficulty === 1) {
-                    return {
-                        question: `How many sides does a triangle have?`,
-                        answer: '3',
-                        options: ['3', '4', '5', '6']
-                    };
-                } else if (difficulty === 2) {
-                    return {
-                        question: `Which of these is a quadrilateral?`,
-                        answer: 'Square',
-                        options: ['Triangle', 'Circle', 'Square', 'Pentagon']
-                    };
-                } else {
-                    return {
-                        question: `How many vertices does a cube have?`,
-                        answer: '8',
-                        options: ['6', '8', '10', '12']
-                    };
-                }
-            },
-
-            'patterns': (difficulty) => {
-                if (difficulty === 1) {
-                    const start = Math.floor(Math.random() * 5) + 1;
-                    const diff = Math.floor(Math.random() * 3) + 1;
-                    const pattern = [start, start + diff, start + 2 * diff, "?"];
-                    const answer = start + 3 * diff;
-                    return {
-                        question: `What is the next number in the pattern: ${pattern.join(', ')}`,
-                        answer: answer.toString(),
-                        options: generatePatternOptions(answer, diff)
-                    };
-                } else if (difficulty === 2) {
-                    const pattern = ["circle", "square", "triangle", "circle", "square", "?"];
-                    return {
-                        question: `What is the next shape in the pattern: ${pattern.join(', ')}`,
-                        answer: "triangle",
-                        options: ["circle", "square", "triangle", "star"]
-                    };
-                } else {
-                    const pattern = [2, 4, 8, 16, "?"];
-                    return {
-                        question: `What is the next number in the pattern: ${pattern.join(', ')}`,
-                        answer: "32",
-                        options: generateGeometricPatternOptions(32, 2)
-                    };
-                }
-            },
-
-            'measurement': (difficulty) => {
-                if (difficulty === 1) {
-                    return {
-                        question: `Which is longer: 10 cm or 1 meter?`,
-                        answer: '1 meter',
-                        options: ['10 cm', '1 meter', 'They are equal', 'Cannot tell']
-                    };
-                } else if (difficulty === 2) {
-                    const length = Math.floor(Math.random() * 10) + 1;
-                    return {
-                        question: `What is the perimeter of a rectangle with length ${length} cm and width ${length + 2} cm?`,
-                        answer: (2 * length + 2 * (length + 2)).toString() + ' cm',
-                        options: generateMeasurementOptions(length, length + 2)
-                    };
-                } else {
-                    const radius = Math.floor(Math.random() * 5) + 2;
-                    return {
-                        question: `What is the approximate area of a circle with radius ${radius} cm? (Use π ≈ 3.14)`,
-                        answer: (Math.PI * radius * radius).toFixed(2) + ' cm²',
-                        options: generateCircleAreaOptions(radius)
-                    };
-                }
-            },
-
-            'money': (difficulty) => {
-                if (difficulty === 1) {
-                    const amount1 = Math.floor(Math.random() * 10) + 1;
-                    const amount2 = Math.floor(Math.random() * 10) + 1;
-                    return {
-                        question: `What is $${amount1} + $${amount2}?`,
-                        answer: `$${amount1 + amount2}`,
-                        options: generateMoneyOptions(amount1 + amount2)
-                    };
-                } else if (difficulty === 2) {
-                    const price = Math.floor(Math.random() * 20) + 5;
-                    const discount = Math.floor(Math.random() * 30) + 10;
-                    const discountedPrice = (price * (1 - discount / 100)).toFixed(2);
-                    return {
-                        question: `What is the price after a ${discount}% discount on $${price}?`,
-                        answer: `$${discountedPrice}`,
-                        options: generateMoneyOptions(parseFloat(discountedPrice))
-                    };
-                } else {
-                    const itemPrice = Math.floor(Math.random() * 10) + 2;
-                    const quantity = Math.floor(Math.random() * 5) + 1;
-                    return {
-                        question: `What is the total cost of ${quantity} items at $${itemPrice} each?`,
-                        answer: `$${itemPrice * quantity}`,
-                        options: generateMoneyOptions(itemPrice * quantity)
-                    };
-                }
-            },
-
-            'time': (difficulty) => {
-                if (difficulty === 1) {
-                    const hour = Math.floor(Math.random() * 12) + 1;
-                    const minute = Math.floor(Math.random() * 60);
-                    const period = Math.random() < 0.5 ? 'AM' : 'PM';
-                    return {
-                        question: `What time is it? (Hour: ${hour}, Minute: ${minute}, Period: ${period})`,
-                        answer: `<span class="math-inline">\{hour\}\:</span>{minute < 10 ? '0' + minute : minute} ${period}`,
-                        options: generateTimeOptions(hour, minute, period)
-                    };
-                } else if (difficulty === 2) {
-                    const hoursToAdd = Math.floor(Math.random() * 5) + 1;
-                    const startHour = Math.floor(Math.random() * 12) + 1;
-                    const startMinute = Math.floor(Math.random() * 60);
-                    const startPeriod = Math.random() < 0.5 ? 'AM' : 'PM';
-                    let endHour = (startHour + hoursToAdd) % 12;
-                    if (endHour === 0) endHour = 12;
-                    let endPeriod = startPeriod;
-                    if (startHour + hoursToAdd >= 12 && startHour < 12) {
-                        endPeriod = startPeriod === 'AM' ? 'PM' : 'AM';
-                    }
-                    return {
-                        question: `What time will it be ${hoursToAdd} hours after <span class="math-inline">\{startHour\}\:</span>{startMinute < 10 ? '0' + startMinute : startMinute} ${startPeriod}?`,
-                        answer: `<span class="math-inline">\{endHour\}\:</span>{startMinute < 10 ? '0' + startMinute : startMinute} ${endPeriod}`,
-                        options: generateFutureTimeOptions(startHour, startMinute, startPeriod, hoursToAdd)
-                    };
-                } else {
-                    const minutesToAdd = Math.floor(Math.random() * 90) + 30;
-                    const startHour = Math.floor(Math.random() * 12) + 1;
-                    const startMinute = Math.floor(Math.random() * 60);
-                    const startPeriod = Math.random() < 0.5 ? 'AM' : 'PM';
-                    let endMinute = (startMinute + minutesToAdd) % 60;
-                    let hourIncrease = Math.floor((startMinute + minutesToAdd) / 60);
-                    let endHour = (startHour + hourIncrease) % 12;
-                    if (endHour === 0) endHour = 12;
-                    let endPeriod = startPeriod;
-                    if (startHour + hourIncrease >= 12 && startHour < 12) {
-                        endPeriod = startPeriod === 'AM' ? 'PM' : 'AM';
-                    } else if (startHour + hourIncrease >= 24) {
-                        endPeriod = startPeriod === 'AM' ? 'PM' : 'AM';
-                    }
-                    return {
-                        question: `What time will it be ${minutesToAdd} minutes after <span class="math-inline">\{startHour\}\:</span>{startMinute < 10 ? '0' + startMinute : startMinute} ${startPeriod}?`,
-                        answer: `<span class="math-inline">\{endHour\}\:</span>{endMinute < 10 ? '0' + endMinute : endMinute} ${endPeriod}`,
-                        options: generateFutureMinuteTimeOptions(startHour, startMinute, startPeriod, minutesToAdd)
-                    };
-                }
-            }
-        };
-
-        // Helper functions
-        function generateOptions(correctAnswer, max) {
-            const options = new Set([correctAnswer]);
-            while (options.size < 4) {
-                const randomOption = Math.floor(Math.random() * max * 1.5) - Math.floor(max * 0.25);
-                if (randomOption !== correctAnswer) {
-                    options.add(randomOption > 0 ? randomOption : 1);
-                }
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateFractionOptions(num, den) {
-            const options = new Set([`<span class="math-inline">\{num\}/</span>{den}`]);
-            while (options.size < 4) {
-                const newNum = Math.floor(Math.random() * 5) + 1;
-                const newDen = Math.floor(Math.random() * 5) + 2;
-                options.add(`<span class="math-inline">\{newNum\}/</span>{newDen}`);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateComplexFractionOptions(num, den) {
-            const options = new Set([`<span class="math-inline">\{num\}/</span>{den}`]);
-            while (options.size < 4) {
-                const newNum = Math.floor(Math.random() * 10) + 1;
-                const newDen = Math.floor(Math.random() * 10) + 2;
-                const simplified = simplifyFraction(newNum, newDen);
-                options.add(simplified.join('/'));
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function simplifyFraction(numerator, denominator) {
-            const gcd = findGCD(numerator, denominator);
-            return [numerator / gcd, denominator / gcd];
-        }
-
-        function findGCD(a, b) {
-            return b === 0 ? a : findGCD(b, a % b);
-        }
-
-        function findLCM(a, b) {
-            return (a * b) / findGCD(a, b);
-        }
-
-        function generateDecimalOptions(correctAnswer, decimals) {
-            const options = new Set([correctAnswer.toFixed(decimals)]);
-            while (options.size < 4) {
-                const randomOffset = (Math.random() * 2 - 1) / Math.pow(10, decimals);
-                const newOption = (correctAnswer + randomOffset).toFixed(decimals);
-                options.add(newOption);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generatePercentageOptions(correctPercentage) {
-            const options = new Set([correctPercentage + '%']);
-            while (options.size < 4) {
-                const offset = Math.floor(Math.random() * 20) - 10;
-                options.add((correctPercentage + offset) + '%');
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateCurrencyOptions(correctAmount) {
-            const options = new Set([`$${correctAmount.toFixed(2)}`]);
-            while (options.size < 4) {
-                const offset = (Math.random() * 10 - 5);
-                options.add(`$${(correctAmount + offset).toFixed(2)}`);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateAlgebraOptions(correctX) {
-            const options = new Set([correctX.toString()]);
-            while (options.size < 4) {
-                const offset = Math.floor(Math.random() * 5) - 2;
-                options.add((correctX + offset).toString());
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateAlgebraicExpressionOptions(correctX) {
-            const options = new Set([`x^2 ${correctX * (Math.floor(Math.random() * 5) + 1) - correctX * (Math.floor(Math.random() * 5) + 1) > 0 ? '+' : ''} ${correctX * (Math.floor(Math.random() * 5) + 1) - correctX * (Math.floor(Math.random() * 5) + 1) !== 0 ? correctX * Math.abs((Math.floor(Math.random() * 5) + 1) - (Math.floor(Math.random() * 5) + 1)) : ''}x - ${(Math.floor(Math.random() * 5) + 1) * (Math.floor(Math.random() * 5) + 1)}`]);
-            while (options.size < 4) {
-                const a = Math.floor(Math.random() * 3) + 1;
-                const b = Math.floor(Math.random() * 7) + 1;
-                const c = Math.floor(Math.random() * 10) + 1;
-                options.add(`${a}x^2 + ${b}x - ${c}`);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateGeometryOptions(correctValue) {
-            const options = new Set([correctValue.toFixed(2) + ' cm' + (correctValue === 0.5 ? '²' : '')]);
-            while (options.size < 4) {
-                const offset = Math.random() * 10 - 5;
-                options.add((correctValue + offset).toFixed(2) + ' cm' + (correctValue === 0.5 ? '²' : ''));
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateProbabilityOptions(red, blue) {
-            const correct = `<span class="math-inline">\{red\}/</span>{red + blue}`;
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const r = Math.floor(Math.random() * 6) + 1;
-                const b = Math.floor(Math.random() * 6) + 1;
-                options.add(`<span class="math-inline">\{r\}/</span>{r + b}`);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateProbabilityDiceOptions(targetSum) {
-            const correct = `${calculateFavorableDiceOutcomes(targetSum)}/36`;
-            const options = new Set([correct]);
-            const sums = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].filter(s => s !== targetSum);
-            while (options.size < 4 && sums.length > 0) {
-                const randomSum = sums.splice(Math.floor(Math.random() * sums.length), 1)[0];
-                options.add(`${calculateFavorableDiceOutcomes(randomSum)}/36`);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function calculateFavorableDiceOutcomes(sum) {
-            let count = 0;
-            for (let i = 1; i <= 6; i++) {
-                for (let j = 1; j <= 6; j++) {
-                    if (i + j === sum) {
-                        count++;
-                    }
-                }
-            }
-            return count;
-        }
-
-        function generateStatisticsOptions(numbers) {
-            const correctMean = (numbers.reduce((sum, num) => sum + num, 0) / numbers.length).toFixed(1);
-            const correctMedian = numbers.slice().sort((a, b) => a - b)[Math.floor(numbers.length / 2)];
-            const modeMap = {};
-            let maxCount = 0;
-            let modes = [];
-            numbers.forEach(num => {
-                modeMap[num] = (modeMap[num] || 0) + 1;
-                if (modeMap[num] > maxCount) {
-                    modes = [num];
-                    maxCount = modeMap[num];
-                } else if (modeMap[num] === maxCount) {
-                    modes.push(num);
-                }
+            // Grade Selection Interaction
+            gradeCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const selectedGrade = card.getAttribute('data-grade');
+                    selectedGradeTitle.textContent = `Grade ${selectedGrade} Subjects`;
+                    gradeSelection.classList.add('hidden');
+                    subjectSelection.classList.remove('hidden');
+                });
             });
-            const correctMode = [...new Set(modes)].join(', ');
 
-            const optionsSet = new Set([correctMean, correctMedian ? correctMedian.toString() : '', correctMode]);
-            while (optionsSet.size < 4) {
-                const randomOffset = (Math.random() * 5 - 2.5).toFixed(1);
-                optionsSet.add((parseFloat(correctMean) + parseFloat(randomOffset)).toFixed(1));
-                optionsSet.add((parseInt(correctMedian) || 0) + Math.floor(Math.random() * 3) - 1);
-                const randomNum = Math.floor(Math.random() * 10) + 1;
-                if (!numbers.includes(randomNum)) {
-                    optionsSet.add(randomNum.toString());
-                }
-            }
-            return shuffleArray([...optionsSet]).filter(opt => opt !== '').map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
+            // Subject Selection Interaction
+            subjectCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const selectedSubject = card.getAttribute('data-subject');
+                    subjectSelection.classList.add('hidden');
+                    practiceArea.classList.remove('hidden');
+                });
+            });
 
-        function generateRatioOptions(a, b) {
-            const correct = `<span class="math-inline">\{a\}\:</span>{b}`;
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const m = Math.floor(Math.random() * 4) + 1;
-                const n = Math.floor(Math.random() * 4) + 1;
-                options.add(`<span class="math-inline">\{a \* m\}\:</span>{b * n}`);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateRatioPartOptions(a, b, total) {
-            const correct = Math.round((a / (a + b)) * total).toString();
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const t = Math.floor(Math.random() * 15) + 5;
-                const pa = Math.round((a / (a + b)) * t);
-                options.add(pa.toString());
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateTripleRatioOptions(a, b, c) {
-            const correct = `<span class="math-inline">\{a\}\:</span>{b}:${c}`;
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const m = Math.floor(Math.random() * 3) + 1;
-                const n = Math.floor(Math.random() * 3) + 1;
-                const o = Math.floor(Math.random() * 3) + 1;
-                options.add(`<span class="math-inline">\{a \* m\}\:</span>{b * n}:${c * o}`);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateAdvancedAlgebraOptions(b) {
-            const correct = `±${Math.sqrt(b).toFixed(2)}`;
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const val = Math.floor(Math.random() * 15) + 1;
-                options.add(`±${Math.sqrt(val).toFixed(2)}`);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateQuadraticSolutionOptions(x1, x2, discriminant) {
-            const correct = discriminant >= 0 ? `${x1.toFixed(2)}, ${x2.toFixed(2)}` : `Complex roots`;
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const r1 = (Math.random() * 10 - 5).toFixed(2);
-                const r2 = (Math.random() * 10 - 5).toFixed(2);
-                options.add(`${r1}, ${r2}`);
-                options.add(`Complex roots`);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generatePowerOptions(base, power) {
-            const correct = Math.pow(base, power).toString();
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const b = Math.floor(Math.random() * 4) + 2;
-                const p = Math.floor(Math.random() * 5) + 2;
-                options.add(Math.pow(b, p).toString());
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateFunctionOptions(m, c, isQuadratic = false) {
-            const correct = isQuadratic ? (m * (-1) * (-1) + c).toString() : (m * 2 + c).toString();
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const m1 = Math.floor(Math.random() * 4) + 1;
-                const c1 = Math.floor(Math.random() * 12) + 1;
-                options.add(isQuadratic ? (m1 * (-1) * (-1) + c1).toString() : (m1 * 2 + c1).toString());
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateCompositeFunctionOptions(a, b, c, d) {
-            const correct = `${a * c}x ${a * d - b > 0 ? '-' : '+'} ${Math.abs(a * d - b)}`;
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const a1 = Math.floor(Math.random() * 3) + 1;
-                const b1 = Math.floor(Math.random() * 4) + 1;
-                const c1 = Math.floor(Math.random() * 3) + 1;
-                const d1 = Math.floor(Math.random() * 4) + 1;
-                options.add(`${a1 * c1}x ${a1 * d1 - b1 > 0 ? '-' : '+'} ${Math.abs(a1 * d1 - b1)}`);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateTrigOptions(correctValue) {
-            const options = new Set([correctValue.toFixed(2)]);
-            const trigValues = [0.5, Math.sqrt(3) / 2, 1 / Math.sqrt(2), 1, 0].filter(v => v.toFixed(2) !== correctValue.toFixed(2));
-            while (options.size < 4 && trigValues.length > 0) {
-                options.add(trigValues.pop().toFixed(2));
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateCalculusDerivativeOptions(n) {
-            const correct = `${n}x^${n - 1}`;
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const m = Math.floor(Math.random() * 6) + 1;
-                options.add(`${m}x^${m - 1}`);
-                options.add(`${n}x^${n}`);
-                options.add(`${n - 1}x^${n}`);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateAdvancedStatisticsOptions(data) {
-            const mean = data.reduce((sum, num) => sum + num, 0) / data.length;
-            const variance = data.map(num => Math.pow(num - mean, 2)).reduce((sum, diff) => sum + diff, 0) / data.length;
-            const options = new Set([variance.toFixed(2)]);
-            while (options.size < 4) {
-                const offset = (Math.random() * 5 - 2.5).toFixed(2);
-                options.add((variance + parseFloat(offset)).toFixed(2));
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function calculateCorrelation(data1, data2) {
-            const n = data1.length;
-            const mean1 = data1.reduce((a, b) => a + b, 0) / n;
-            const mean2 = data2.reduce((a, b) => a + b, 0) / n;
-            const stdDev1 = Math.sqrt(data1.map(x => Math.pow(x - mean1, 2)).reduce((a, b) => a + b, 0) / n);
-            const stdDev2 = Math.sqrt(data2.map(x => Math.pow(x - mean2, 2)).reduce((a, b) => a + b, 0) / n);
-            if (stdDev1 === 0 || stdDev2 === 0) return 0;
-            let covariance = 0;
-            for (let i = 0; i < n; i++) {
-                covariance += (data1[i] - mean1) * (data2[i] - mean2);
-            }
-            covariance /= n;
-            return covariance / (stdDev1 * stdDev2);
-        }
-
-        function generateCorrelationOptions(correlation) {
-            const options = new Set([correlation]);
-            while (options.size < 4) {
-                const offset = (Math.random() * 0.4 - 0.2).toFixed(2);
-                const newCorr = Math.max(-1, Math.min(1, correlation + parseFloat(offset))).toFixed(2);
-                options.add(newCorr);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function binomialProbability(n, k, p) {
-            function factorial(num) {
-                if (num === 0) return 1;
-                let result = 1;
-                for (let i = 2; i <= num; i++) result *= i;
-                return result;
-            }
-            const combinations = factorial(n) / (factorial(k) * factorial(n - k));
-            return combinations * Math.pow(p, k) * Math.pow(1 - p, n - k);
-        }
-
-        function generateBinomialOptions(n, p) {
-            const k = Math.floor(Math.random() * (n + 1));
-            const correct = binomialProbability(n, k, p).toFixed(3);
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const otherK = Math.floor(Math.random() * (n + 1));
-                options.add(binomialProbability(n, otherK, p).toFixed(3));
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateConditionalProbabilityOptions(correctProb) {
-            const options = new Set([correctProb]);
-            while (options.size < 4) {
-                const offset = (Math.random() * 0.3 - 0.15).toFixed(2);
-                const newProb = Math.max(0, Math.min(1, correctProb + parseFloat(offset))).toFixed(2);
-                options.add(newProb);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function poissonProbability(lambda, k) {
-            return (Math.pow(lambda, k) * Math.exp(-lambda)) / factorial(k);
-            function factorial(n) {
-                if (n === 0) return 1;
-                let result = 1;
-                for (let i = 1; i <= n; i++) result *= i;
-                return result;
-            }
-        }
-
-        function generatePoissonOptions(lambda) {
-            const k = Math.floor(lambda) + Math.floor(Math.random() * 3) - 1;
-            const correct = poissonProbability(lambda, Math.max(0, k)).toFixed(3);
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const otherK = Math.floor(lambda) + Math.floor(Math.random() * 3) - 1;
-                options.add(poissonProbability(lambda, Math.max(0, otherK)).toFixed(3));
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateZScoreOptions(correctZ) {
-            const options = new Set([correctZ]);
-            while (options.size < 4) {
-                const offset = (Math.random() * 2 - 1).toFixed(2);
-                options.add((parseFloat(correctZ) + parseFloat(offset)).toFixed(2));
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateLogOptions(base, result) {
-            const correct = (Math.log(result) / Math.log(base)).toFixed(2);
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const b = Math.floor(Math.random() * 4) + 2;
-                const r = Math.pow(b, Math.floor(Math.random() * 3) + 1);
-                options.add((Math.log(r) / Math.log(b)).toFixed(2));
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateCommonLogOptions(power) {
-            const correct = power.toString();
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const p = Math.floor(Math.random() * 5) - 2;
-                options.add(p.toString());
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateLinearRelationOptions(c) {
-            const options = new Set([c.toString()]);
-            while (options.size < 4) {
-                const offset = Math.floor(Math.random() * 15) - 7;
-                options.add((c + offset).toString());
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateSlopeOptions(slope) {
-            const options = new Set([slope.toFixed(2)]);
-            while (options.size < 4) {
-                const offset = (Math.random() * 3 - 1.5).toFixed(2);
-                options.add((slope + parseFloat(offset)).toFixed(2));
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateLineEquationOptions(m, c) {
-            const correct = `y = ${m}x + ${c}`;
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const m1 = Math.floor(Math.random() * 4) + 1;
-                const c1 = Math.floor(Math.random() * 12) + 1;
-                options.add(`y = ${m1}x + ${c1}`);
-                options.add(`y = ${m}x + ${c1 + 5}`);
-                options.add(`y = ${m + 1}x + ${c}`);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateVectorMagnitudeOptions(x, y) {
-            const correct = Math.sqrt(x * x + y * y).toFixed(2);
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const x1 = Math.floor(Math.random() * 6) + 1;
-                const y1 = Math.floor(Math.random() * 6) + 1;
-                options.add(Math.sqrt(x1 * x1 + y1 * y1).toFixed(2));
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateVectorAdditionOptions(x1, y1, x2, y2) {
-            const correct = `<${x1 + x2}, ${y1 + y2}>`;
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const a1 = Math.floor(Math.random() * 6) + 1;
-                const b1 = Math.floor(Math.random() * 6) + 1;
-                const a2 = Math.floor(Math.random() * 6) + 1;
-                const b2 = Math.floor(Math.random() * 6) + 1;
-                options.add(`<${a1 + a2}, ${b1 + b2}>`);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateScalarMultiplicationOptions(x, y, scalar) {
-            const correct = `<${x * scalar}, ${y * scalar}>`;
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const s = Math.floor(Math.random() * 4) + 1;
-                options.add(`<${x * s}, ${y * s}>`);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generatePatternOptions(answer, diff) {
-            const options = new Set([answer.toString()]);
-            while (options.size < 4) {
-                const offset = Math.floor(Math.random() * 5) - 2;
-                options.add((answer + offset * diff).toString());
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateGeometricPatternOptions(answer, ratio) {
-            const options = new Set([answer.toString()]);
-            while (options.size < 4) {
-                const offsetRatio = Math.pow(ratio, Math.floor(Math.random() * 3) - 1);
-                options.add((answer * offsetRatio).toString());
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateMeasurementOptions(length1, length2) {
-            const correct = (2 * length1 + 2 * length2).toString() + ' cm';
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const l1 = Math.floor(Math.random() * 12) + 1;
-                const l2 = Math.floor(Math.random() * 12) + 1;
-                options.add((2 * l1 + 2 * l2).toString() + ' cm');
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateCircleAreaOptions(radius) {
-            const correct = (Math.PI * radius * radius).toFixed(2) + ' cm²';
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const r = Math.floor(Math.random() * 7) + 1;
-                options.add((Math.PI * r * r).toFixed(2) + ' cm²');
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateMoneyOptions(correctAmount) {
-            const options = new Set([`$${correctAmount.toFixed(2)}`]);
-            while (options.size < 4) {
-                const offset = Math.random() * 15 - 7;
-                options.add(`$${(correctAmount + offset).toFixed(2)}`);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateTimeOptions(hour, minute, period) {
-            const correct = `${hour}:${minute < 10 ? '0' + minute : minute} ${period}`;
-            const options = new Set([correct]);
-            const periods = ['AM', 'PM'];
-            while (options.size < 4) {
-                const h = Math.floor(Math.random() * 12) + 1;
-                const m = Math.floor(Math.random() * 60);
-                const p = periods[Math.floor(Math.random() * 2)];
-                options.add(`${h}:${m < 10 ? '0' + m : m} ${p}`);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateFutureTimeOptions(startHour, startMinute, startPeriod, hoursToAdd) {
-            let endHour = (startHour + hoursToAdd) % 12;
-            if (endHour === 0) endHour = 12;
-            let endPeriod = startPeriod;
-            if (startHour + hoursToAdd >= 12 && startHour < 12) {
-                endPeriod = startPeriod === 'AM' ? 'PM' : 'AM';
-            }
-            const correct = `${endHour}:${startMinute < 10 ? '0' + startMinute : startMinute} ${endPeriod}`;
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const hAdd = Math.floor(Math.random() * 6) + 1;
-                let eh = (startHour + hAdd) % 12;
-                if (eh === 0) eh = 12;
-                let ep = startPeriod;
-                if (startHour + hAdd >= 12 && startHour < 12) ep = startPeriod === 'AM' ? 'PM' : 'AM';
-                options.add(`${eh}:${startMinute < 10 ? '0' + startMinute : startMinute} ${ep}`);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateFutureMinuteTimeOptions(startHour, startMinute, startPeriod, minutesToAdd) {
-            let endMinute = (startMinute + minutesToAdd) % 60;
-            let hourIncrease = Math.floor((startMinute + minutesToAdd) / 60);
-            let endHour = (startHour + hourIncrease) % 12;
-            if (endHour === 0) endHour = 12;
-            let endPeriod = startPeriod;
-            if (startHour + hourIncrease >= 12 && startHour < 12) endPeriod = startPeriod === 'AM' ? 'PM' : 'AM';
-            else if (startHour + hourIncrease >= 24) endPeriod = startPeriod === 'AM' ? 'PM' : 'AM';
-            const correct = `${endHour}:${endMinute < 10 ? '0' + endMinute : endMinute} ${endPeriod}`;
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const mAdd = Math.floor(Math.random() * 120) + 15;
-                let em = (startMinute + mAdd) % 60;
-                let ehInc = Math.floor((startMinute + mAdd) / 60);
-                let eh = (startHour + ehInc) % 12;
-                if (eh === 0) eh = 12;
-                let ep = startPeriod;
-                if (startHour + ehInc >= 12 && startHour < 12) ep = startPeriod === 'AM' ? 'PM' : 'AM';
-                else if (startHour + ehInc >= 24) ep = startPeriod === 'AM' ? 'PM' : 'AM';
-                options.add(`<span class="math-inline">\{eh\}\:</span>{em < 10 ? '0' + em : em} ${ep}`);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateProbabilityOptions(correctProb) {
-            const options = new Set([correctProb.toFixed(2)]);
-            while (options.size < 4) {
-                const offset = (Math.random() * 0.3 - 0.15).toFixed(2);
-                const newProb = parseFloat(correctProb) + parseFloat(offset);
-                if (newProb >= 0 && newProb <= 1) {
-                    options.add(newProb.toFixed(2));
-                }
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generatePercentageOptions(correctPercentage) {
-            const options = new Set([`${correctPercentage}%`]);
-            while (options.size < 4) {
-                const offset = Math.floor(Math.random() * 30) - 15;
-                const newPercentage = correctPercentage + offset;
-                if (newPercentage >= 0 && newPercentage <= 100) {
-                    options.add(`${newPercentage}%`);
-                }
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateRatioOptions(a, b) {
-            const correct = `<span class="math-inline">\{a\}\:</span>{b}`;
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const a1 = Math.floor(Math.random() * 5) + 1;
-                const b1 = Math.floor(Math.random() * 5) + 1;
-                options.add(`<span class="math-inline">\{a1\}\:</span>{b1}`);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateUnitConversionOptions(correctValue, unit1, unit2, factor) {
-            const correct = `${correctValue.toFixed(2)} ${unit2}`;
-            const options = new Set([correct]);
-            while (options.size < 4) {
-                const val = (Math.random() * 10 + 1).toFixed(2);
-                options.add(`${(parseFloat(val) * factor + (Math.random() * 5 - 2.5)).toFixed(2)} ${unit2}`);
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateAlgebraicExpressionOptions(correctExpression) {
-            const options = new Set([correctExpression]);
-            const parts = correctExpression.split(' ');
-            while (options.size < 4) {
-                let newParts = [...parts];
-                const indexToChange = Math.floor(Math.random() * newParts.length);
-                if (/[0-9]/.test(newParts[indexToChange])) {
-                    newParts[indexToChange] = (parseInt(newParts[indexToChange]) + Math.floor(Math.random() * 3) - 1).toString();
-                } else if (/[a-z]/.test(newParts[indexToChange])) {
-                    newParts[indexToChange] = String.fromCharCode(newParts[indexToChange].charCodeAt(0) + Math.floor(Math.random() * 3) - 1);
-                } else if (['+', '-', '*', '/'].includes(newParts[indexToChange])) {
-                    const ops = ['+', '-', '*', '/'];
-                    newParts[indexToChange] = ops[Math.floor(Math.random() * ops.length)];
-                }
-                options.add(newParts.join(' '));
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateInequalityOptions(correctInequality) {
-            const options = new Set([correctInequality]);
-            const parts = correctInequality.split(' ');
-            const operators = ['<', '>', '<=', '>='];
-            while (options.size < 4) {
-                let newParts = [...parts];
-                const indexToChange = Math.floor(Math.random() * newParts.length);
-                if (/[0-9]/.test(newParts[indexToChange])) {
-                    newParts[indexToChange] = (parseInt(newParts[indexToChange]) + Math.floor(Math.random() * 5) - 2).toString();
-                } else if (operators.includes(newParts[indexToChange])) {
-                    newParts[indexToChange] = operators[Math.floor(Math.random() * operators.length)];
-                } else if (/[a-z]/.test(newParts[indexToChange])) {
-                    newParts[indexToChange] = String.fromCharCode(newParts[indexToChange].charCodeAt(0) + Math.floor(Math.random() * 3) - 1);
-                }
-                options.add(newParts.join(' '));
-            }
-            return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-        }
-
-        function generateQuadraticRootOptions(a, b, c) {
-            const discriminant = b * b - 4 * a * c;
-            if (discriminant >= 0) {
-                const root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
-                const root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
-                const correct = `${root1.toFixed(2)}, ${root2.toFixed(2)}`;
-                const options = new Set([correct]);
-                while (options.size < 4) {
-                    const a1 = Math.floor(Math.random() * 3) + 1;
-                    const b1 = Math.floor(Math.random() * 7) - 3;
-                    const c1 = Math.floor(Math.random() * 7) - 3;
-                    const disc = b1 * b1 - 4 * a1 * c1;
-                    if (disc >= 0) {
-                        const r1 = (-b1 + Math.sqrt(disc)) / (2 * a1);
-                        const r2 = (-b1 - Math.sqrt(disc)) / (2 * a1);
-                        options.add(`${r1.toFixed(2)}, ${r2.toFixed(2)}`);
-                    }
-                }
-                return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-            } else {
-                return ['No real roots'].map(opt => `<button class="option-btn">${opt}</button>`).join('');
-            }
-        }
-
-        function generateTrigValueOptions(angle, func) {
-            let correct;
-            switch (func) {
-                case 'sin': correct = Math.sin(angle * Math.PI / 180).toFixed(2); break;
-                case 'cos': correct = Math.cos(angle * Math.PI / 180).toFixed(2); break;
-                case 'tan': correct = Math.tan(angle * Math.PI / 180).toFixed(2); break;
-                default: return [];
-            }
-            const options = new Set([correct]);
-        const closeValues = [0.1, -0.1, 0.2, -0.2];
-        while (options.size < 4) {
-            const offset = closeValues[Math.floor(Math.random() * closeValues.length)];
-            options.add((parseFloat(correct) + offset).toFixed(2));
-        }
-        return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-    }
-
-    function generateInverseTrigValueOptions(value, func) {
-        let correct;
-        switch (func) {
-            case 'asin': correct = (Math.asin(value) * 180 / Math.PI).toFixed(0); break;
-            case 'acos': correct = (Math.acos(value) * 180 / Math.PI).toFixed(0); break;
-            case 'atan': correct = (Math.atan(value) * 180 / Math.PI).toFixed(0); break;
-            default: return [];
-        }
-        const options = new Set([correct]);
-        const closeValues = [-15, -10, 10, 15];
-        while (options.size < 4) {
-            const offset = closeValues[Math.floor(Math.random() * closeValues.length)];
-            options.add((parseInt(correct) + offset).toString());
-        }
-        return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}°</button>`).join('');
-    }
-
-    function generateAngleOptions(correctAngle) {
-        const options = new Set([`${correctAngle}°`]);
-        const closeValues = [-5, -10, 10, 5];
-        while (options.size < 4) {
-            const offset = closeValues[Math.floor(Math.random() * closeValues.length)];
-            options.add(`${correctAngle + offset}°`);
-        }
-        return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-    }
-
-    function generateBearingOptions(correctBearing) {
-        const options = new Set([correctBearing]);
-        const offsets = [-10, -5, 5, 10];
-        while (options.size < 4) {
-            const offset = offsets[Math.floor(Math.random() * offsets.length)];
-            const newBearing = (parseInt(correctBearing.slice(0, -1)) + offset) % 360;
-            options.add(`${newBearing < 0 ? newBearing + 360 : newBearing}°`);
-        }
-        return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-    }
-
-    function generateCoordinateOptions(x, y) {
-        const correct = `(${x}, ${y})`;
-        const options = new Set([correct]);
-        const xOffsets = [-1, 0, 1];
-        const yOffsets = [-1, 0, 1];
-        while (options.size < 4) {
-            const dx = xOffsets[Math.floor(Math.random() * xOffsets.length)];
-            const dy = yOffsets[Math.floor(Math.random() * yOffsets.length)];
-            options.add(`(${x + dx}, ${y + dy})`);
-        }
-        return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-    }
-
-    function generateEquationOptions(correctEquation) {
-        const options = new Set([correctEquation]);
-        const parts = correctEquation.split(' ');
-        while (options.size < 4) {
-            let newParts = [...parts];
-            const indexToChange = Math.floor(Math.random() * newParts.length);
-            if (/[0-9]/.test(newParts[indexToChange])) {
-                newParts[indexToChange] = (parseInt(newParts[indexToChange]) + Math.floor(Math.random() * 5) - 2).toString();
-            } else if (/[a-z]/.test(newParts[indexToChange])) {
-                newParts[indexToChange] = String.fromCharCode(newParts[indexToChange].charCodeAt(0) + Math.floor(Math.random() * 3) - 1);
-            } else if (['+', '-', '=', '*', '/'].includes(newParts[indexToChange])) {
-                const ops = ['+', '-', '=', '*', '/'];
-                newParts[indexToChange] = ops[Math.floor(Math.random() * ops.length)];
-            }
-            options.add(newParts.join(' '));
-        }
-        return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-    }
-
-    function generateVolumeOptions(correctVolume) {
-        const options = new Set([`${correctVolume} cm³`]);
-        while (options.size < 4) {
-            const offset = Math.floor(Math.random() * 30) - 10;
-            options.add(`${correctVolume + offset} cm³`);
-        }
-        return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-    }
-
-    function generateSurfaceAreaOptions(correctArea) {
-        const options = new Set([`${correctArea} cm²`]);
-        while (options.size < 4) {
-            const offset = Math.floor(Math.random() * 50) - 20;
-            options.add(`${correctArea + offset} cm²`);
-        }
-        return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-    }function generateDataPointOptions(correctX, correctY) {
-        const correct = `(${correctX}, ${correctY})`;
-        const options = new Set([correct]);
-        const xOffsets = [-2, -1, 1, 2];
-        const yOffsets = [-2, -1, 1, 2];
-        while (options.size < 4) {
-            const dx = xOffsets[Math.floor(Math.random() * xOffsets.length)];
-            const dy = yOffsets[Math.floor(Math.random() * yOffsets.length)];
-            options.add(`(${correctX + dx}, ${correctY + dy})`);
-        }
-        return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-    }
-
-    function generateFrequencyOptions(correctFrequency) {
-        const options = new Set([`${correctFrequency} Hz`]);
-        const offsets = [-5, -2, 2, 5];
-        while (options.size < 4) {
-            const offset = offsets[Math.floor(Math.random() * offsets.length)];
-            options.add(`${correctFrequency + offset} Hz`);
-        }
-        return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-    }
-
-    function generateTimeUnitOptions(correctUnit) {
-        const timeUnits = ['seconds', 'minutes', 'hours', 'days'];
-        const options = new Set([correctUnit]);
-        while (options.size < 4) {
-            const randomUnit = timeUnits[Math.floor(Math.random() * timeUnits.length)];
-            options.add(randomUnit);
-        }
-        return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-    }
-
-    function generateSpeedOptions(correctSpeed) {
-        const options = new Set([`${correctSpeed} m/s`]);
-        const offsets = [-3, -1, 1, 3];
-        while (options.size < 4) {
-            const offset = offsets[Math.floor(Math.random() * offsets.length)];
-            options.add(`${correctSpeed + offset} m/s`);
-        }
-        return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-    }
-
-    function generateMassOptions(correctMass) {
-        const options = new Set([`${correctMass} kg`]);
-        const offsets = [-2, -0.5, 0.5, 2];
-        while (options.size < 4) {
-            const offset = offsets[Math.floor(Math.random() * offsets.length)];
-            options.add(`${correctMass + offset} kg`);
-        }
-        return shuffleArray([...options]).map(opt => `<button class="option-btn">${opt}</button>`).join('');
-    }
-
-    // Helper function to shuffle an array (Fisher-Yates algorithm)
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    }
-
-    // Helper function for Poisson probability
-    function poissonProbability(lambda, k) {
-        if (lambda < 0 || k < 0 || !Number.isInteger(k)) {
-            return 0; // Or handle error appropriately
-        }
-        const numerator = Math.exp(-lambda) * Math.pow(lambda, k);
-        let denominator = 1;
-        for (let i = 1; i <= k; i++) {
-            denominator *= i;
-        }
-        return numerator / denominator;
-    }
+            // Back to Grades Button
+            backToGradesBtn.addEventListener('click', () => {
+                subjectSelection.classList.add('hidden');
+                gradeSelection.classList.remove('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
